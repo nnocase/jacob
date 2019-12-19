@@ -1,0 +1,15 @@
+server {
+
+       listen 7000;
+       server_name example.com;
+       access_log /data/log/nginx/manage_admin.access.log main;
+       error_log /data/log/nginx/manage_admin.error.log;
+
+       location / { 
+              client_max_body_size 8M; 
+              proxy_pass http://127.0.0.1:20179/;
+              proxy_set_header X-Host $host;
+              proxy_set_header X-Real-Ip $remote_addr;
+       }   
+
+}

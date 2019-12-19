@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+
+{% block css %}
+<link href="{{ url_for('static', filename='css/highlight.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../../static/images/post-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h2 class="text-center">{{ item.title }}</h2>
+            <span class="meta text-right" style="font-size: 16px">
+              {{ item.created }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          {{ item.body|markdown|safe }}
+<!--          <p>图片来源：-->
+<!--            <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.-->
+<!--          </p>-->
+        </div>
+      </div>
+    </div>
+  </article>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/highlight.js') }}"></script>
+<script type="text/javascript">
+    $('pre').css({"background-color":"#EFF0EF", "padding": "10px",
+      "border": "1px solid #CBCCCB","border-radius":"5px", "font-size":"14px"});
+
+    $('article a').css({"text-decoration":"none", "color": "#17A1B7", "font-size": "16px"});
+
+    $('article img').parent().css({
+       "width":"100%",
+       "height":"300px",
+       "display":"block",
+       "text-align":"center",
+    });
+
+    $('article img').css({"max-width": "100%", "max-height": "100%", "display": "inline"});
+</script>
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends 'admin/admin.html' %}
+{% import 'base/macros.html' as macros %}
+
+{% block nav_content %}
+<div class="container active p-0 pt-2" style="font-size: 16px">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>网站标题</th>
+                <th>网站子标题</th>
+                <th>博主名</th>
+                <th>是否删除</th>
+                <th>创建时间</th>
+                <th>
+                    <a href="{{ url_for('bp_admin.user_add') }}" class="text-info">添加</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.username }}</td>
+                <td>{{ item.blog_title }}</td>
+                <td style="word-wrap: break-word; word-break: break-all; width: 15% !important;">
+                    {{ item.blog_sub_title }}
+                </td>
+                <td>{{ item.name }}</td>
+                <td>
+                    <input type="checkbox" name="is_use" {% if item.is_use %}checked{% endif %}>
+                </td>
+                <td>{{ item.created }}</td>
+                <td>
+                    <a href="{{ url_for('bp_admin.user_edit', id=item.id) }}">
+                        <i class="fa fa-fw fa-edit text-info"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

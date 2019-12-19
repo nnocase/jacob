@@ -1,0 +1,10 @@
+{%- macro render_msg() %}
+  {% with msgs = get_flashed_messages(with_categories = True) %}
+  {% for category, messages in msgs %}
+    <div class="alert alert-{{category}} alert-dismissible alert-msg alert-rounded" role="alert">
+      <button type="button" class="close close-msg" data-dismiss="alert" onclick="$(this).closest('.alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <i class="fa fa-fw fa-info-circle"></i><strong>{{messages}}</strong>
+    </div>
+  {% endfor %}
+  {% endwith %}
+{% endmacro -%}

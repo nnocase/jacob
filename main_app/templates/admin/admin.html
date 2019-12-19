@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% block css %}
+{{ super() }}
+<style type="text/css">
+
+</style>
+{% endblock %}
+
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead mb-3" style="background-image: url('../../static/images/about-bg.jpg'); height: 250px; line-height: 300px">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading mt-0 p-5">
+            <h1>管理后台</h1>
+            <span class="subheading"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Main Content -->
+  <div class="container">
+      <div style="font-size: 14px;position: absolute;right: 20px;z-index: 10">
+          {{ macros.render_msg() }}
+      </div>
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+          <div class="container">
+              <!-- Nav tabs -->
+              {% include 'admin/nav.html' %}
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                {% block nav_content %}{% endblock %}
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

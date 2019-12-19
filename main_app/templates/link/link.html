@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../../static/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>友链</h1>
+            <span class="subheading"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+          <a href="{{ url_for('bp_home.home') }}">
+            <p class="post-title">
+              <span style="font-size: 24px">层楼</span>
+              <span style="font-size: 14px; float: right;padding-top: 30px"></span>
+            </p>
+          </a>
+        </div>
+        <hr>
+        <!-- Pager -->
+        <div class="clearfix">
+          <a class="btn btn-primary float-right" href="#">下一页</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

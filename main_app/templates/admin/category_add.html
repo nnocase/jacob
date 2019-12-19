@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加分类</title>
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+</head>
+<body style="padding-top: 10%;">
+    <form action="" method="post" class="col-lg-8 m-auto">
+      <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+          <label>名称</label>
+          <input type="text" class="form-control" placeholder="名称" name="name" maxlength="20" required>
+        </div>
+      </div>
+      <br>
+      <div class="form-group row">
+        <label class="col-sm-9 col-form-label text-right"></label>
+        <div class="col-sm-3">
+          <button type="submit" class="btn btn-info">添加</button>
+          <a href="javascript:history.go(-1)" role="button" aria-pressed="true" class="btn btn-dark" style="margin-left:30px;">取消</a>
+        </div>
+      </div>
+    </form>
+</body>
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+<script type="text/javascript">
+
+</script>
+</html>

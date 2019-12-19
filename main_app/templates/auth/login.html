@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../../static/images/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>登录</h1>
+            <span class="subheading"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p></p>
+        <form action="{{ url_for('bp_auth.login') }}" method="post" name="sentMessage" id="contactForm">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>账号</label>
+              <input type="text" class="form-control" placeholder="账号" name="username" {% if username %}value="{{ username }}"{% endif %}} required>
+              <small class="help-block text-danger">{% if user_error %}{{ user_error }}{% endif %}</small>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>密码</label>
+              <input type="password" class="form-control" placeholder="密码" name="password" {% if password %}value="{{ password }}"{% endif %} required>
+              <small class="help-block text-danger">{% if pwd_error %}{{ pwd_error }}{% endif %}</small>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">登录</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  <!-- Form JavaScript -->
+  <script src="{{ url_for('static', filename='js/jqBootstrapValidation.js') }}"></script>
+{% endblock %}

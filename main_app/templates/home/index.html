@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../../static/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>层楼</h1>
+            <span class="subheading">少年不识愁滋味，爱上层楼。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for item in items %}
+              <div class="post-preview border border-top-0 border-left-0 border-right-0">
+                <a href="{{ url_for('bp_post.detail', id=item.id) }}">
+                  <p class="post-title">
+                    <span style="font-size: 24px">{{ item.title }}</span>
+                    <span style="font-size: 14px; float: right;padding-top: 30px">{{ item.created }}</span>
+                  </p>
+                </a>
+              </div>
+            {% endfor %}
+          <br>
+          <!-- Pager -->
+          <div class="clearfix">
+            <a class="btn btn-primary float-right" href="#">下一页</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+

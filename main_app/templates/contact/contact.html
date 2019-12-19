@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../../static/images/contact-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>留言</h1>
+            <span class="subheading">抱歉，我暂时不在家。请在"嘟"声后留言！</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <h3>嘟～</h3>
+        <form name="sentMessage" id="contactForm">
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>姓名</label>
+              <input type="text" class="form-control" placeholder="姓名" name="name" required data-validation-required-message="请输入您的姓名">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>邮箱</label>
+              <input type="email" class="form-control" placeholder="邮箱" name="email" required data-validation-required-message="请输入您的邮箱">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group col-xs-12 floating-label-form-group controls">
+              <label>也可以申请友链哦😯</label>
+              <input type="tel" class="form-control" placeholder="site" name="site">
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>留言</label>
+              <textarea rows="5" class="form-control" placeholder="留言" name="message" required data-validation-required-message="请输入留言"></textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+          <br>
+          <div id="success"></div>
+          <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary" id="sendMessageButton">发送</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+  <!-- Contact Form JavaScript -->
+  <script src="{{ url_for('static', filename='js/jqBootstrapValidation.js') }}"></script>
+{% endblock %}
