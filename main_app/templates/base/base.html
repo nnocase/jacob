@@ -45,6 +45,22 @@
   </nav>
   {% endblock %}
 
+  <!-- Page Header -->
+  <header class="masthead mb-3" style="{% block bgimg %}{% endblock %}; height: 200px">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading mt-0 p-5">
+            <h1>{% block title %}{% endblock %}</h1>
+            <span class="subheading">{% block sub_title %}{% endblock %}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
   {% block content %} {% endblock %}
 
   <hr>

@@ -4,23 +4,12 @@
 <link href="{{ url_for('static', filename='css/highlight.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('../../static/images/post-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="post-heading">
-            <h2 class="text-center">{{ item.title }}</h2>
-            <span class="meta text-right" style="font-size: 16px">
-              {{ item.created }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+{% block bgimg %}background-image: url('../../static/images/post-bg.jpg'){% endblock %}
+{% block title %}<span style="font-size: 30px">{{ item.title }}</span> {% endblock %}
+{% block sub_title %}<span class="meta text-right" style="font-size: 16px">
+              {{ item.created }}</span>{% endblock %}
 
+{% block content %}
   <!-- Post Content -->
   <article>
     <div class="container">
