@@ -107,6 +107,27 @@ class UserEdit(MethodView):
         flash(u'编辑成功', 'success')
         return redirect(url_for('bp_admin.user'))
 
+
+class UserDel(MethodView):
+    """用户删除"""
+    @login_required
+    def post(self):
+        id = request_form('id', type=int, required=True)
+        status = request_form('status', type=int, required=True)
+
+        user = Admin.query.get(id)
+        if user is None:
+            flash(u'用户不存在', 'danger')
+            return redirect(url_for('bp_admin.user'))
+
+        user.is_use = status
+        try:
+            db.session.commit()
+        except Exception as e:
+            return json.dumps({'code': 1000, 'message': '失败'})
+        
+        return json.dumps({'code': 1001, 'message': '成功'})
+
         
 class CategoryList(MethodView):
     """分类列表"""
@@ -175,25 +196,66 @@ class CategoryEdit(MethodView):
         return redirect(url_for('bp_admin.category_list'))
 
 
+class CategoryDel(MethodView):
+    """分类删除"""
+    @login_required
+    def post(self):
+        id = request_form('id', type=int, required=True)
+        status = request_form('status', type=int, required=True)
+
+        user = Categorys.query.get(id)
+        if user is None:
+            flash(u'分类不存在', 'danger')
+            return redirect(url_for('bp_admin.category'))
+
+        ret = user.delete(status)
+
+        return ret
+
+
 class PostList(MethodView):
     """文章列表"""
     @login_required
     def get(self):
-        post = Posts.query.all()
+        post = Posts.query.order_by(Posts.id.desc()).all()
         items = [p.to_admin() for p in post]
 
         return render_template('admin/post.html', nav='post', items=items)
+
+
+class PostDel(MethodView):
+    """文章删除"""
+    @login_required
+    def post(self):
+        id = request_form('id', type=int, required=True)
+        status = request_form('status', type=int, required=True)
+
+        post = Posts.query.get(id)
+        if post is None:
+            flash(u'文章不存在', 'danger')
+            return redirect(url_for('bp_admin.post'))
+
+        post.is_use = status
+        try:
+            db.session.commit()
+        except Exception as e:
+            return json.dumps({'code': 1000, 'message': '失败'})
         
+        return json.dumps({'code': 1001, 'message': '成功'})
+
 
 # 用户
 bp.add_url_rule('/', view_func=User.as_view('user'))
 bp.add_url_rule('/add', view_func=UserAdd.as_view('user_add'))
 bp.add_url_rule('/edit', view_func=UserEdit.as_view('user_edit'))
+bp.add_url_rule('/del', view_func=UserDel.as_view('user_del'))
 
 # 分类
 bp.add_url_rule('/category', view_func=CategoryList.as_view('category_list'))
 bp.add_url_rule('/category/add', view_func=CategoryAdd.as_view('category_add'))
 bp.add_url_rule('/category/edit', view_func=CategoryEdit.as_view('category_edit'))
+bp.add_url_rule('/category/del', view_func=CategoryDel.as_view('category_del'))
 
 # 文章
 bp.add_url_rule('/post', view_func=PostList.as_view('post'))
+bp.add_url_rule('/post/del', view_func=PostDel.as_view('post_del'))
