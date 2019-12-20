@@ -1,0 +1,9 @@
+.DS_Store
+*.pyc
+.idea
+__pycache__
+.env
+env
+migrations/
+deploy/
+*/__pycache__
