@@ -5,6 +5,7 @@ Author: xgf
 Date: 2019-12-09
 """
 import datetime
+import ujson as json 
 
 from sqlalchemy import text
 
@@ -21,14 +22,21 @@ class Categorys(db.Model):
     is_use = db.Column(db.Boolean, default=True)  # 是否使用
     created = db.Column(db.DateTime, server_default=text('Now()'))  # 创建时间
 
-    def delete(self):
+    def delete(self, status):
         default_category = Categorys.query.get(1)
         posts = Posts.query.filter_by(category_id=self.id).all()
         for post in posts:
-            post.category_id = default_category.id
+            post.is_use = status
 
-        self.is_use = False
-        db.session.commit()
+        self.is_use = status
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            return json.dumps({'code': 1000, 'message': '失败'})
+
+        return json.dumps({'code': 1001, 'message': '成功'})
+
     
     def to_admin(self):
         return {
