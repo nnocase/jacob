@@ -8,7 +8,7 @@
             <tr>
                 <th>ID</th>
                 <th>名称</th>
-                <th>是否删除</th>
+                <th>是否显示</th>
                 <th>创建时间</th>
                 <th>
                     <a href="{{ url_for('bp_admin.category_add') }}" class="text-info">添加</a>
@@ -21,7 +21,7 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                    <input type="checkbox" name="is_use" {% if item.is_use %}checked{% endif %}>
+                    <input type="checkbox" class="check-box" name="is_use" data-id="{{ item.id }}" data-url="{{ url_for('bp_admin.category_del') }}" {% if item.is_use %}checked{% endif %}>
                 </td>
                 <td>{{ item.created }}</td>
                 <td>
@@ -34,4 +34,9 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/switch-checkbox.js') }}"></script>
 {% endblock %}
