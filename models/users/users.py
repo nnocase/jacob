@@ -61,3 +61,4 @@ class Admin(db.Model, UserMixin):
             'is_use': self.is_use,
             'created': time_format(self.created)
         }
+
