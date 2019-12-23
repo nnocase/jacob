@@ -16,8 +16,9 @@ from models.users.users import Admin
 class CreatedUser(Command):
     """创建初始用户"""
     def run(self):
-        username = 'aon'
-        password = '123456'
+        username = input('请输入用户名：')
+        password = input('请输入密码：')
+
         password_hash = generate_password_hash(password)
 
         user = Admin(username=username, password_hash=password_hash, blog_title='', blog_sub_title='',
