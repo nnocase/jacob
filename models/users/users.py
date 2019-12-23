@@ -25,7 +25,7 @@ class Admin(db.Model, UserMixin):
     blog_sub_title = db.Column(db.String(100))  # 网站子标题
     name = db.Column(db.String(30))  # 名称
     about = db.Column(db.Text)  # 关于
-    is_use = db.Column(db.Boolean, default=True)  # 是否显示
+    is_use = db.Column(db.Boolean, default=False)  # 是否显示
     created = db.Column(db.DateTime, default=text('Now()'))  # 创建时间
 
     def set_password(self, password):

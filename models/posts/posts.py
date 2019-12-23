@@ -5,12 +5,13 @@ Author: xgf
 Date: 2019-12-09
 """
 import datetime
-import ujson as json 
+import ujson as json
 
 from sqlalchemy import text
 
+from lib import utils
 from ..base import db
-from lib.utils import time_format,markdown2html
+from lib.utils import time_format, markdown2html
 
 
 class Categorys(db.Model):
@@ -19,11 +20,10 @@ class Categorys(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)  # 名称
-    is_use = db.Column(db.Boolean, default=True)  # 是否使用
+    is_use = db.Column(db.Boolean, default=False)  # 是否使用
     created = db.Column(db.DateTime, server_default=text('Now()'))  # 创建时间
 
     def delete(self, status):
-        default_category = Categorys.query.get(1)
         posts = Posts.query.filter_by(category_id=self.id).all()
         for post in posts:
             post.is_use = status
@@ -37,7 +37,6 @@ class Categorys(db.Model):
 
         return json.dumps({'code': 1001, 'message': '成功'})
 
-    
     def to_admin(self):
         return {
             'id': self.id,
@@ -55,8 +54,8 @@ class Posts(db.Model):
     title = db.Column(db.String(60))  # 标题
     body = db.Column(db.Text)  # 主题
     created = db.Column(db.DateTime, server_default=text('Now()'), index=True)  # 创建时间
-    can_comment = db.Column(db.Boolean, default=True)  # 能否评论
-    is_use = db.Column(db.Boolean, default=True)  # 是否使用
+    can_comment = db.Column(db.Boolean, default=False)  # 能否评论
+    is_use = db.Column(db.Boolean, default=False)  # 是否使用
     category_id = db.Column(db.Integer)
 
     def delete(self):
@@ -72,14 +71,17 @@ class Posts(db.Model):
             'category_id': self.category_id,
             'category_name': category_name,
             'title': self.title,
-            'body': markdown2html(self.body),
+            'body': utils.remove_tag(markdown2html(self.body)),
             'can_comment': self.can_comment,
             'is_use': self.is_use,
             'created': time_format(self.created)
         }
 
     def to_detail(self):
-        return self.to_home()
+        post = self.to_home()
+        post['body'] = markdown2html(self.body)
+
+        return post
 
     def to_admin(self):
         post = self.to_home()
@@ -110,18 +112,25 @@ class Comments(db.Model):
         db.session.commit()
 
 
-class Links(db.Model):
-    """链接"""
-    __tablename__ = 'links'
-
+class Messages(db.Model):
+    """留言"""
+    __tablename__ = 'messages'
+    
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))  # 名称
-    url = db.Column(db.String(255))  # url
-    is_use = db.Column(db.Boolean, default=True)  # 是否使用
+    email = db.Column(db.String())  # 邮箱
+    url = db.Column(db.String(255))  # 友链url
+    message = db.Column(db.Text)  # 留言
+    is_use = db.Column(db.Boolean, default=False)  # 是否显示
     created = db.Column(db.DateTime, server_default=text('Now()'))  # 创建时间
 
-    def delete(self):
-        self.is_use = False
-        db.session.commit()
-
-
+    def to_admin(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'url': self.url,
+            'message': self.message,
+            'is_use': self.is_use,
+            'created': time_format(self.created)
+        } 
