@@ -6,6 +6,7 @@ Date: 2019-12-09
 """
 import datetime
 import markdown
+import re
 
 
 def time_format(created, pattern="%Y-%m-%d %H:%M:%S"):
@@ -24,3 +25,11 @@ def markdown2html(text):
     ]
 
     return markdown.markdown(text, extensions=extensions)
+
+
+def remove_tag(html):
+    """去除html标签"""
+    dr = re.compile(r'<[^>]+>', re.S)
+    dd = dr.sub('', html)
+
+    return dd
