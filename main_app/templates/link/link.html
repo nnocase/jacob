@@ -7,22 +7,20 @@
 {% block content %}
   <!-- Main Content -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          <a href="{{ url_for('bp_home.home') }}">
-            <p class="post-title">
-              <span style="font-size: 24px">层楼</span>
-              <span style="font-size: 14px; float: right;padding-top: 30px"></span>
-            </p>
+      <div class="row col-lg-10 mx-auto">
+        <!-- Column -->
+        {% for item in items %}
+        <div class="col-md-3 mb-3">
+          <a href="{{ item.url }}" target="_blank" style="text-decoration: none">
+            <div class="card card-inverse">
+                <div class="box p-2">
+                    <img src="{{ item.url }}/favicon.ico" width="22px" class="pb-1">
+                    <span>{{ item.name }}</span>
+                </div>
+            </div>
           </a>
         </div>
-        <hr>
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">下一页</a>
-        </div>
-      </div>
+        {% endfor %}
     </div>
   </div>
 {% endblock %}

@@ -14,11 +14,15 @@
   <article>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-10 col-md-10 mx-auto">
           {{ item.body|markdown|safe }}
-<!--          <p>图片来源：-->
-<!--            <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.-->
-<!--          </p>-->
+          <p>
+              <label class="border" style="font-size: 16px;padding: 0 3px;">
+                <a href="{{ url_for('bp_home.home', category_id=item.category_id) }}" style="text-decoration: none">
+                  {{ item.category_name }}
+                </a>
+              </label>
+          </p>
         </div>
       </div>
     </div>

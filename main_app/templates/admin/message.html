@@ -1,0 +1,45 @@
+{% extends 'admin/admin.html' %}
+{% import 'base/macros.html' as macros %}
+
+{% block nav_content %}
+<div class="container active p-0 pt-2" style="font-size: 16px">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名字</th>
+                <th>邮箱</th>
+                <th>URL</th>
+                <th>留言</th>
+                <th>是否显示</th>
+                <th>创建时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            {% set url=url_for('bp_post.detail', id=item.id) %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td style="width: 15%;word-break: break-all;word-wrap: break-word;!important;">
+                    <a href="{{ item.url }}" target="_blank" class="text-info">{{ item.url }}</a>
+                </td>
+                <td style="word-break: break-all; word-wrap: break-word; width: 20% !important;">
+                    {{ item.message }}
+                </td>
+                <td>
+                    <input type="checkbox" class="check-box" name="is_use" data-id="{{ item.id }}" data-url="{{ url_for('bp_admin.message_del') }}" {% if item.is_use %}checked{% endif %}>
+                </td>
+                <td>{{ item.created }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/switch-checkbox.js') }}"></script>
+{% endblock %}

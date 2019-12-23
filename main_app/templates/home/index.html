@@ -1,29 +1,48 @@
 {% extends 'base/base.html' %}
 
 {% block bgimg %}background-image: url('../../static/images/home-bg.jpg'){% endblock %}
-{% block title %}层楼{% endblock %}
-{% block sub_title %}少年不识愁滋味，爱上层楼。{% endblock %}
+{% block title %}{{ site.blog_title }}{% endblock %}
+{% block sub_title %}{{ site.blog_sub_title }}{% endblock %}
 
 {% block content %}
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="col-lg-8 col-md-10 mx-auto">
             {% for item in items %}
-              <div class="post-preview border border-top-0 border-left-0 border-right-0">
-                <a href="{{ url_for('bp_post.detail', id=item.id) }}">
-                  <p class="post-title">
-                    <span style="font-size: 24px">{{ item.title }}</span>
-                    <span style="font-size: 14px; float: right;padding-top: 30px">{{ item.created }}</span>
-                  </p>
-                </a>
-              </div>
+                <div class="post-preview border border-top-0 border-left-0 border-right-0">
+                    <a href="{{ url_for('bp_post.detail', id=item.id) }}">
+                      <p class="post-title">
+                        <span style="font-size: 24px">{{ item.title }}</span>
+                        <label class="border" style="font-size: 12px;padding: 0 3px;">{{ item.category_name }}</label>
+                        <span style="font-size: 14px; float: right;padding-top: 30px">{{ item.created }}</span>
+                      </p>
+                    </a>
+                    <p class="mt-1 mb-2" style="font-size: 16px;color: #6A6B6A">
+                      {{ item.body|truncate(255, True)|safe }}
+                    </p>
+                </div>
             {% endfor %}
-          <br>
-          <!-- Pager -->
-          <div class="clearfix">
-            <a class="btn btn-primary float-right" href="#">下一页</a>
+            <br>
+            <!-- Pager -->
+            {% if page < endpage %}
+            <div class="clearfix">
+                <a class="btn btn-primary float-right" href="{{ url_for('bp_home.home', page=page+1) }}">下一页</a>
+            </div>
+            {% endif %}
           </div>
-        </div>
+          <div class="col-lg-3 col-md-2 mt-5 p-0">
+              <div class="p-2 border">
+                  <span style="font-size: 20px">标签</span>
+                  <hr class="mt-1">
+                  {% for c in cate_items %}
+                  <label class="border" style="font-size: 16px;padding: 0 3px;">
+                      <a href="{{ url_for('bp_home.home', category_id=c.id) }}" style="text-decoration: none">
+                          {{ c.name }}
+                      </a>
+                  </label>
+                  {% endfor %}
+              </div>
+          </div>
       </div>
     </div>
 {% endblock %}

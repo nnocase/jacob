@@ -50,7 +50,7 @@
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-10 col-md-10 mx-auto">
           <div class="page-heading mt-0 p-5">
             <h1>{% block title %}{% endblock %}</h1>
             <span class="subheading">{% block sub_title %}{% endblock %}</span>
@@ -63,35 +63,36 @@
   <!-- Main Content -->
   {% block content %} {% endblock %}
 
-  <hr>
+  <a href="{{ url_for('bp_admin.user') }}"><hr></a>
   {% block footer %}
   <!-- Footer -->
   <footer style="padding: 0">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-10 col-md-10 mx-auto">
+          分享到：
           <ul class="list-inline text-center">
             <li class="list-inline-item">
-              <a href="#">
+              <a href="#" class="share" data-type="qq">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#">
+              <a href="#" class="share" data-type="weixin">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                  <i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#">
+              <a href="#" class="share" data-type="weibo">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  <i class="fab fa-weibo fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
             </li>
@@ -111,5 +112,47 @@
   <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
 
   {% block js %}{% endblock %}
+  <script type="text/javascript">
+    $(".share").click(function (){
+      var stype = $(this).data('type');
+      //获取文章标题
+      var ftit = window.document.title;
+      //获取网页中内容的第一张图片地址作为分享图
+      var flink = window.document.images[0];
+      var lk = '';
+      var url = window.document.location.href;
+      var host = window.location.host;
+      var description = window.document.querySelector('meta[name="description"]').getAttribute('content');
+
+      if(typeof flink == 'undefined'){
+          flink='';
+      }
+      console.log(ftit, flink, lk);
+      //当内容中没有图片时，设置分享图片为网站logo
+      if(flink == ''){
+          lk = 'http://'+ host +'/favicon.ico';
+      }
+      // //百度编辑器自带图片获取
+      // if(flink.indexOf('ueditor') != -1){
+      //     lk = flink;
+      // }
+      //qq空间接口的传参
+      if(stype=='qzone'){
+          window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+url+'&title='+ftit+'&pics='+lk+'&summary='+description);
+      }
+      //新浪微博接口的传参
+      if(stype=='weibo'){
+          window.open('http://service.weibo.com/share/share.php?url='+url+'&title='+ftit+'&pic='+lk+'&appkey=2706825840');
+      }
+      //qq好友接口的传参
+      if(stype == 'qq'){
+          window.open('http://connect.qq.com/widget/shareqq/index.html?url='+url+'&title='+ftit+'&pics='+lk+'&summary='+description);
+      }
+      //生成二维码给微信扫描分享，也可以用jquery.qrcode.js插件实现二维码生成
+      if(stype == 'weixin'){
+
+      }
+  })
+  </script>
 </body>
 </html>
