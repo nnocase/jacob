@@ -21,7 +21,8 @@ bp = Blueprint('bp_auth', __name__)
 class Login(MethodView):
     """登录"""
     def get(self):
-        if current_user:
+        if current_user.is_authenticated:
+            print(current_user)
             flash(u'已登录，不要重复登录', 'danger')
             return redirect(url_for('bp_admin.user'))
 

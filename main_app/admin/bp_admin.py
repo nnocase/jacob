@@ -9,13 +9,13 @@ import ujson as json
 
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask.views import MethodView
-from flask_login import login_required
+from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 
 from lib._flask import request_args, request_form
 from lib.utils import markdown2html
 from models.base import db
-from models.posts.posts import Categorys, Posts
+from models.posts.posts import Categorys, Posts, Messages
 from models.users.users import Admin
 
 bp = Blueprint('bp_admin', __name__)
@@ -25,6 +25,10 @@ class User(MethodView):
     """后台信息"""
     @login_required
     def get(self):
+        if not current_user.is_authenticated:
+            flash(u'未登录，请先登录', 'danger')
+            return redirect(url_for('bp_auth.login'))
+
         admin = Admin.query.order_by(Admin.id.desc()).all()
         items = [a.to_admin() for a in admin]
 
@@ -157,10 +161,10 @@ class CategoryAdd(MethodView):
             db.session.rollback()
             print(traceback.format_exc())
             flash(u'添加失败', 'danger')
-            return redirect(url_for('bp_admin.category_list'))
+            return redirect(url_for('bp_admin.category'))
 
         flash(u'添加成功', 'success')
-        return redirect(url_for('bp_admin.category_list'))
+        return redirect(url_for('bp_admin.category'))
 
 
 class CategoryEdit(MethodView):
@@ -244,6 +248,37 @@ class PostDel(MethodView):
         return json.dumps({'code': 1001, 'message': '成功'})
 
 
+class MessageList(MethodView):
+    """留言列表"""
+    @login_required
+    def get(self):
+        mess = Messages.query.order_by(Messages.id.desc()).all()
+        items = [m.to_admin() for m in mess]
+
+        return render_template('admin/message.html', items=items, nav='message')
+    
+
+class MessageDel(MethodView):
+    """留言上墙"""
+    @login_required
+    def post(self): 
+        id = request_form('id', type=int, required=True)
+        status = request_form('status', type=int, required=True)
+
+        mess = Messages.query.get(id)
+        if mess is None:
+            flash(u'留言不存在', 'danger')
+            return redirect(url_for('bp_admin.message'))
+
+        mess.is_use = status
+        try:
+            db.session.commit()
+        except Exception as e:
+            return json.dumps({'code': 1000, 'message': '失败'})
+        
+        return json.dumps({'code': 1001, 'message': '成功'})
+
+
 # 用户
 bp.add_url_rule('/', view_func=User.as_view('user'))
 bp.add_url_rule('/add', view_func=UserAdd.as_view('user_add'))
@@ -251,7 +286,7 @@ bp.add_url_rule('/edit', view_func=UserEdit.as_view('user_edit'))
 bp.add_url_rule('/del', view_func=UserDel.as_view('user_del'))
 
 # 分类
-bp.add_url_rule('/category', view_func=CategoryList.as_view('category_list'))
+bp.add_url_rule('/category', view_func=CategoryList.as_view('category'))
 bp.add_url_rule('/category/add', view_func=CategoryAdd.as_view('category_add'))
 bp.add_url_rule('/category/edit', view_func=CategoryEdit.as_view('category_edit'))
 bp.add_url_rule('/category/del', view_func=CategoryDel.as_view('category_del'))
@@ -259,3 +294,8 @@ bp.add_url_rule('/category/del', view_func=CategoryDel.as_view('category_del'))
 # 文章
 bp.add_url_rule('/post', view_func=PostList.as_view('post'))
 bp.add_url_rule('/post/del', view_func=PostDel.as_view('post_del'))
+
+# 留言
+bp.add_url_rule('/message', view_func=MessageList.as_view('message'))
+bp.add_url_rule('/message/del', view_func=MessageDel.as_view('message_del'))
+

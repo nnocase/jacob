@@ -55,8 +55,13 @@ class Add(MethodView):
         except Exception as e:
             db.session.rollback()
             print(traceback.format_exc())
+            flash(u'添加失败', 'danger')
 
-        return json.dumps({'code': 1001, 'message': '添加成功'})
+            return redirect(url_for('bp_admin.post'))
+
+        flash(u'添加失败', 'info')
+
+        return redirect(url_for('bp_admin.post'))
 
 
 class Edit(MethodView):

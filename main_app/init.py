@@ -9,9 +9,16 @@ import os
 from flask import Flask, render_template
 from redis import Redis
 from flaskext.markdown import Markdown
+from bs4 import BeautifulSoup as bs
 
 from models import base
 from services.accounts import auth
+
+
+def prettify(html):
+    """解析html"""
+    soup = bs(html, 'html.parser')
+    return soup.prettify()
 
 
 def create_app(config=None):
@@ -27,7 +34,9 @@ def create_app(config=None):
     register_auth(app)
     register_redis(app)
     configure_session(app)
-    
+    # register custom filter in flask app
+    app.jinja_env.filters['prettify'] = prettify
+
     return app
 
 
