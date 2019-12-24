@@ -1,9 +1,10 @@
 .DS_Store
 *.pyc
 .idea
-__pycache__
+__pycache__/
 .env
 env
 migrations/
 deploy/
-*__pycache__
+*/__pycache__
+*/__pycache__/*.pyc
