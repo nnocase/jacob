@@ -7,6 +7,10 @@ Date: 2019-12-09
 import datetime
 import markdown
 import re
+import os
+
+import qrcode
+import requests
 
 
 def time_format(created, pattern="%Y-%m-%d %H:%M:%S"):
@@ -33,3 +37,36 @@ def remove_tag(html):
     dd = dr.sub('', html)
 
     return dd
+
+
+def create_qrcode(url, filepath):
+    """ 生成二维码 """
+    try:
+        qr = qrcode.QRCode(version=2, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=1)
+        qr.add_data(url)
+        qr.make(fit=True)
+        img = qr.make_image()
+        img.save(filepath)
+        print("生成二维码完成")
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+
+def save_img(picurl, filepath):
+    """ 下载图片 """
+    try:
+        file_suffix = os.path.splitext(picurl)[1]
+        if file_suffix:
+            file_suffix = file_suffix
+        else:
+            file_suffix = '.jpg'
+        imgdate = requests.get(picurl).read()
+        filepath = filepath + file_suffix
+        output = open(filepath, 'wb+')
+        output.write(imgdate)
+        output.close()
+        print("下载完成")
+    except Exception as e:
+        print(e)
