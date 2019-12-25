@@ -49,6 +49,7 @@ def register_blueprints(app):
     from main_app.contact import bp_contact
     from main_app.link import bp_link
     from main_app.admin import bp_admin
+    from main_app.tool import bp_tool
 
     app.register_blueprint(bp_home.bp, url_prefix='/')  # 首页
     app.register_blueprint(bp_auth.bp, url_prefix='/auth')  # 登录模块
@@ -57,6 +58,7 @@ def register_blueprints(app):
     app.register_blueprint(bp_contact.bp, url_prefix='/contact')  # 留言
     app.register_blueprint(bp_link.bp, url_prefix='/link')  # 友链
     app.register_blueprint(bp_admin.bp, url_prefix='/admin')  # 管理后台
+    app.register_blueprint(bp_tool.bp, url_prefix='/tool')  # 工具
 
 
 def register_db(app):

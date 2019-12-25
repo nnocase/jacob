@@ -41,6 +41,7 @@ class Config(object):
 
 class DevConfig(Config):
     """开发环境配置信息"""
+    PORT = 5000
     DEBUG = True
     SECRET_KEY = os.environ.get('DEV_SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.environ.get('PSQL_URI')

@@ -4,10 +4,13 @@
 <link href="{{ url_for('static', filename='css/highlight.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block bgimg %}background-image: url('../../static/images/home-bg.jpg'){% endblock %}
-{% block title %}<span style="font-size: 35px">{{ item.title }}</span> {% endblock %}
-{% block sub_title %}<span class="meta text-right" style="font-size: 16px">
-              {{ item.created }}</span>{% endblock %}
+{% block bgimg %}background-image: url('https://meiriyiwen.com/images/new_feed/bg_{{ range(1, 98)|random }}.jpg'){% endblock %}
+{% block title %}<span style="font-size: 35px">{{ item.title }}</span>{% endblock %}
+{% block sub_title %}
+    <span class="meta text-right" style="font-size: 16px">
+        {{ item.created }}
+    </span>
+{% endblock %}
 
 {% block content %}
   <!-- Post Content -->

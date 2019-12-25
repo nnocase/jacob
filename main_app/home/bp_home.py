@@ -7,6 +7,7 @@ Date: 2019-12-11
 from flask import Blueprint, render_template
 from flask.views import MethodView
 
+from lib import utils
 from lib._flask import request_args
 from models.posts.posts import Posts, Categorys
 from models.users.users import Admin
@@ -35,17 +36,9 @@ class Home(MethodView):
         posts = query.limit(size).offset((page-1) * size).all()
         items = [p.to_home() for p in posts]
         endpage = int((count / size) if (count % size == 0) else (count / size + 1))
-        
+
         return render_template('home/index.html', site=site, items=items, cate_items=cate_items,
                                page=page, endpage=endpage)
 
 
-class Share(MethodView):
-    """分享"""
-    def get(self):
-
-        return render_template('base/share.html')
-
-
 bp.add_url_rule('/', view_func=Home.as_view('home'))
-bp.add_url_rule('/share', view_func=Share.as_view('share'))
