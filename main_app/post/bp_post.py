@@ -109,7 +109,7 @@ class Edit(MethodView):
             elif inlet == 2:
                 return redirect(url_for('bp_admin.post'))
 
-        flash(u'编辑成功', 'danger')
+        flash(u'编辑成功', 'info')
         if inlet == 1:
             return redirect(url_for('bp_post.detail', id=id))
         elif inlet == 2:

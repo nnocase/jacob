@@ -22,7 +22,7 @@
         padding: 0 2px;
         height: 400px;
         left: 50%;
-        top: 50%;
+        top: 35%;
         box-sizing: border-box;
         transform: translate(-50%, -20%);
         display: none;
@@ -81,11 +81,13 @@
 
   <!-- Main Content -->
   <div id="wxqrcode">
-        <p class="text-right m-0">
-            <svg t="1577278693599" id="close" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5973" width="20" height="20"><path d="M510.165333 453.482667L270.634667 213.952l-60.330667 60.352 239.530667 239.530667L210.304 753.365333l60.330667 60.330667 239.530666-239.530667L512 576l1.834667-1.834667 239.530666 239.530667 60.330667-60.330667-239.530667-239.530666 239.530667-239.530667-60.330667-60.352-239.530666 239.530667-1.834667-1.813334z" p-id="5974"></path></svg>
-        </p>
-        <img alt="请用微信扫描二维码" id="qrcode" style="padding: 0 10px;margin-bottom: 10px">
-        <p class="text-center m-0">请用微信扫码分享</p>
+    <p class="text-right m-0">
+        <svg t="1577278693599" id="close" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5973" width="20" height="20">
+            <path d="M510.165333 453.482667L270.634667 213.952l-60.330667 60.352 239.530667 239.530667L210.304 753.365333l60.330667 60.330667 239.530666-239.530667L512 576l1.834667-1.834667 239.530666 239.530667 60.330667-60.330667-239.530667-239.530666 239.530667-239.530667-60.330667-60.352-239.530666 239.530667-1.834667-1.813334z" p-id="5974"></path>
+        </svg>
+    </p>
+    <img alt="请用微信扫描二维码" id="qrcode" style="padding: 0 10px;margin-bottom: 10px">
+    <p class="text-center m-0">请用微信扫码分享</p>
   </div>
   {% block content %}
   {% endblock %}

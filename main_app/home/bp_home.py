@@ -4,7 +4,7 @@ Description: 首页
 Author: xgf
 Date: 2019-12-11
 """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 from flask.views import MethodView
 
 from lib import utils
