@@ -22,4 +22,4 @@ else:
 
 
 if __name__ == '__mian__':
-    app.run(port=app.config['port'])
+    app.run(port=app.config['PORT'])
