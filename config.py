@@ -49,5 +49,5 @@ class DevConfig(Config):
     SUBSYS_ROUTER_HOST = 'http://127.0.0.1'
 
     DOMAIN = 'example.com'
-    OPERATION_LOG = os.environ.get('DEV_OPERATIOON_LOG')
+    OPERATION_LOG = os.environ.get('DEV_OPERATION_LOG')
 
