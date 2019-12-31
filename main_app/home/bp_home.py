@@ -28,7 +28,7 @@ class Home(MethodView):
         site = Admin.query.filter_by(is_use=True).first()
         site = site.to_admin()
 
-        query = Posts.query.filter_by(is_use=True)
+        query = Posts.query.filter_by(is_use=True).order_by(Posts.id.desc())
         if category_id:
             query = query.filter_by(category_id=category_id)
 
