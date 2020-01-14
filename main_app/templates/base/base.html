@@ -65,7 +65,7 @@
   {% endblock %}
 
   <!-- Page Header -->
-  <header class="masthead mb-3" style="{% block bgimg %}background-image: url('https://meiriyiwen.com/images/new_feed/bg_{{ range(1, 98)|random }}.jpg'){% endblock %}; height: 200px">
+  <header class="masthead mb-3" style="height: 200px">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -131,14 +131,11 @@
     </div>
   </footer>
   {% endblock %}
-
   <!-- Bootstrap core JavaScript -->
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
   <!-- Custom scripts for this template -->
   <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
-
   {% block js %}{% endblock %}
   <script type="text/javascript">
     $(".share").click(function (){
@@ -195,11 +192,25 @@
                 }
             })
       }
-  })
+  });
 
     $("#close").click(function () {
         $('#wxqrcode').hide();
-    })
+    });
+
+    function random_bg(){
+        $.ajax({
+            url: "{{ url_for('bp_tool.random_bg') }}",
+            type: "get",
+            dataType: "json",
+            success: function (ret) {
+                if(ret.code==1001){
+                    $("header").css("background-image", "url("+ret.datas+")")
+                }
+            }
+        });
+    }
+    random_bg();
   </script>
 </body>
 </html>

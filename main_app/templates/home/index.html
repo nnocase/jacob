@@ -1,6 +1,5 @@
 {% extends 'base/base.html' %}
 
-{#{% block bgimg %}background-image: url('../../static/images/home-bg.jpg'){% endblock %}#}
 {% block title %}{{ site.blog_title }}{% endblock %}
 {% block sub_title %}{{ site.blog_sub_title }}{% endblock %}
 
@@ -26,7 +25,7 @@
             <!-- Pager -->
             {% if page < endpage %}
             <div class="clearfix">
-                <a class="btn btn-primary float-right" href="{{ url_for('bp_home.home', page=page+1) }}">下一页</a>
+                <a class="btn btn-primary float-right" href="{{ url_for('bp_home.home', page=page + 1) }}">下一页</a>
             </div>
             {% endif %}
           </div>
