@@ -10,6 +10,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import text
 
+from lib._qiniu import fill_domain
 from models.base import db
 from lib.utils import time_format, markdown2html
 
@@ -58,6 +59,24 @@ class Admin(db.Model, UserMixin):
             'blog_sub_title': self.blog_sub_title,
             'name': self.name,
             'about': self.about,
+            'is_use': self.is_use,
+            'created': time_format(self.created)
+        }
+
+
+class Images(db.Model):
+    """图片素材"""
+    __tablename__ = 'images'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), nullable=True)  # 名称
+    is_use = db.Column(db.Boolean, default=True)  # 是否显示
+    created = db.Column(db.DateTime, default=text('Now()'))  # 创建时间
+
+    def to_list(self):
+        return {
+            'id': self.id,
+            'name': fill_domain(self.name),
             'is_use': self.is_use,
             'created': time_format(self.created)
         }
