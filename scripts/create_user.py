@@ -21,8 +21,8 @@ class CreatedUser(Command):
 
         password_hash = generate_password_hash(password)
 
-        user = Admin(username=username, password_hash=password_hash, blog_title='', blog_sub_title='',
-                     name='aon', about='')
+        user = Admin(username=username, password_hash=password_hash, blog_title='',
+                     blog_sub_title='', name='aon', about='')
 
         db.session.add(user)
         db.session.commit()
