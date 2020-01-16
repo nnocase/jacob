@@ -38,6 +38,15 @@ class Config(object):
     DOMAIN = 'http://www.icenglou.cn'
     OPERATION_LOG = os.environ.get('OPERATION_LOG')
 
+    QINIU_IMG_HOST = 'img.icenglou.cn'
+    QINIU_SETTINGS = {
+        'access_key': os.environ.get('QINIU_ACCESS_KEY'),
+        'secret_key': os.environ.get('QINIU_SECRET_KEY'),
+        'buckets': {
+            'xgf': QINIU_IMG_HOST
+        }
+    }
+
 
 class DevConfig(Config):
     """开发环境配置信息"""
