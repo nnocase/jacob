@@ -4,9 +4,9 @@ Description: 工具接口
 Date: 2019-12-25
 Author: xgf
 """
+import os
 import random
 import time
-
 import requests
 import ujson as json
 
@@ -15,6 +15,7 @@ from flask import Blueprint, current_app
 from lib.utils import create_qrcode
 from lib._flask import request_args
 from models import Images
+from lib._qiniu import upload_file, fill_domain
 
 bp = Blueprint('bp_tool', __name__)
 
@@ -26,11 +27,12 @@ def wx_arcode():
         param url
     """
     url = request_args('url', type=str, required=True)
-    path = './main_app/static/images/qrcode/{}.png'.format(time.time())
+    path = './main_app/static/images/qrcode/{}.png'.format(str(int(time.time()*10000000)) + str(random.randint(0, 9999)))
 
     ok = create_qrcode(url, path)
     if ok:
-        img_url = current_app.config['SUBSYS_ROUTER_HOST'] + ':' + str(current_app.config['PORT']) + path[10:]
+        img_url = fill_domain(upload_file(path, path))
+        os.remove(path)
         return json.dumps({'code': 1001, 'message': '成功', 'datas': img_url})
     else:
         return json.dumps({'code': 1000, 'message': '失败'})
