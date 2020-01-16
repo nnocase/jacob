@@ -5,12 +5,18 @@ Author: xgf
 Date: 2019-12-09
 """
 import datetime
-import markdown
+import hashlib
+from random import choice
 import re
 import os
 
 import qrcode
+import markdown
 import requests
+
+
+def md5(_str):
+    return hashlib.md5(_str).hexdigest()
 
 
 def time_format(created, pattern="%Y-%m-%d %H:%M:%S"):
@@ -40,7 +46,7 @@ def remove_tag(html):
 
 
 def create_qrcode(url, filepath):
-    """ 生成二维码 """
+    """生成二维码"""
     try:
         qr = qrcode.QRCode(version=2, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=1)
         qr.add_data(url)
@@ -55,7 +61,7 @@ def create_qrcode(url, filepath):
 
 
 def save_img(picurl, filepath):
-    """ 下载图片 """
+    """下载图片"""
     try:
         file_suffix = os.path.splitext(picurl)[1]
         if file_suffix:
