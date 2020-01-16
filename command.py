@@ -11,11 +11,12 @@ from wsgi import app
 manager = Manager(app)
 
 # 导入要执行的脚本
-from scripts import example
-from scripts import create_user
+from scripts import example, create_user, gather_bg
 
 manager.add_command('example', example.Example())
 manager.add_command('create_user', create_user.CreatedUser())
+manager.add_command('bg', gather_bg.GatherBG())
+manager.add_command('bing', gather_bg.BingBG())
 
 
 if __name__ == '__main__':
