@@ -4,12 +4,13 @@ Description: 关于
 Date: 2019-12-13
 Author: xgf
 """
-import datetime 
+import datetime
+from random import choice
 
 from flask import Blueprint, render_template
 from flask.views import MethodView
 
-from models.users.users import Admin
+from models.users.users import Admin, Images
 
 bp = Blueprint('bp_about', __name__)
 
