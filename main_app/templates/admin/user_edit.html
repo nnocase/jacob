@@ -66,7 +66,6 @@
 <script src="{{ url_for('static', filename='plugins/editormd/editormd.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     var testEditor;
-
     $(function () {
         testEditor = editormd("test-editormd", {
             width: "97%",
@@ -77,8 +76,7 @@
             emoji: true,
             imageUpload    : true,
             imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL : "",
-
+            imageUploadURL : "{{ url_for('bp_tool.editor_upload') }}",
         });
     });
 
