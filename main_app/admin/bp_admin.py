@@ -7,16 +7,17 @@ Author: xgf
 import traceback
 import ujson as json
 
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask.views import MethodView
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 
 from lib._flask import request_args, request_form
+from lib._qiniu import upload_data, fill_domain
 from lib.utils import markdown2html
 from models.base import db
 from models.posts.posts import Categorys, Posts, Messages
-from models.users.users import Admin
+from models.users.users import Admin, Images
 
 bp = Blueprint('bp_admin', __name__)
 
@@ -279,6 +280,68 @@ class MessageDel(MethodView):
         return json.dumps({'code': 1001, 'message': '成功'})
 
 
+class ImagesList(MethodView):
+    """图片列表"""
+    @login_required
+    def get(self):
+        page = request_args('page', type=int, default=1)
+        size = request_args('size', type=int, default=20)
+
+        query = Images.query.order_by(Images.id.desc())
+        images = query.limit(size).offset((page - 1) * size).all()
+        items = [i.to_admin() for i in images]
+
+        return render_template('admin/images.html', items=items, page=page, size=size, nav='images')
+
+
+class ImagesAdd(MethodView):
+    """图片添加"""
+    @login_required
+    def get(self):
+
+        return render_template('admin/images_add.html')
+
+    def post(self):
+        image = request.files.get('image')
+        if not image:
+            flash('获取图片失败', 'danger')
+            return redirect(url_for('bp_admin.images'))
+
+        url = upload_data(image)
+        img = Images(name=url)
+        try:
+            db.session.add(img)
+            db.session.commit()
+            flash('添加成功! url: %s' % fill_domain(url), 'info')
+        except Exception as e:
+            db.session.rollback()
+            print(traceback.format_exc())
+            flash('添加失败', 'danger')
+
+        return redirect(url_for('bp_admin.images'))
+
+
+class ImagesDel(MethodView):
+    """图片删除"""
+    @login_required
+    def post(self):
+        id = request_form('id', type=int, required=True)
+        status = request_form('status', type=int, required=True)
+
+        img = Images.query.get(id)
+        if img is None:
+            flash(u'图片不存在', 'danger')
+            return redirect(url_for('bp_admin.post'))
+
+        img.is_use = status
+        try:
+            db.session.commit()
+        except Exception as e:
+            return json.dumps({'code': 1000, 'message': '失败'})
+
+        return json.dumps({'code': 1001, 'message': '成功'})
+
+
 # 用户
 bp.add_url_rule('/', view_func=User.as_view('user'))
 bp.add_url_rule('/add', view_func=UserAdd.as_view('user_add'))
@@ -298,4 +361,10 @@ bp.add_url_rule('/post/del', view_func=PostDel.as_view('post_del'))
 # 留言
 bp.add_url_rule('/message', view_func=MessageList.as_view('message'))
 bp.add_url_rule('/message/del', view_func=MessageDel.as_view('message_del'))
+
+
+# 图片
+bp.add_url_rule('/images', view_func=ImagesList.as_view('images'))
+bp.add_url_rule('images/add', view_func=ImagesAdd.as_view('images_add'))
+bp.add_url_rule('/images/del', view_func=ImagesDel.as_view('images_del'))
 
