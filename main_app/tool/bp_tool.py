@@ -7,15 +7,18 @@ Author: xgf
 import os
 import random
 import time
+import traceback
+
 import requests
 import ujson as json
 
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, request
+from flask.views import MethodView
 
 from lib.utils import create_qrcode
 from lib._flask import request_args
 from models import Images
-from lib._qiniu import upload_file, fill_domain
+from lib._qiniu import upload_file, fill_domain, upload_data
 
 bp = Blueprint('bp_tool', __name__)
 
@@ -48,3 +51,21 @@ def random_bg():
     bg = random.choice(images)['name']
 
     return json.dumps({'code': 1001, 'message': '成功', 'datas': bg})
+
+
+class EditorUpload(MethodView):
+    """编辑器上传图片"""
+    def post(self):
+        try:
+            image = request.files.get("editormd-image-file", None)
+            print(image)
+        except Exception as e:
+            print(traceback.format_exc())
+            return json.dumps({'success': 0, 'message': '上传失败'})
+
+        url = fill_domain(upload_data(image)) if image else ''
+
+        return json.dumps({'success': 1, 'message': '上传成功', 'url': url})
+
+
+bp.add_url_rule('/editor/upload', view_func=EditorUpload.as_view('editor_upload'))
