@@ -9,3 +9,4 @@ deploy/
 */__pycache__
 */__pycache__/*.pyc
 *.cpython-37.pyc
+*.qiniu_pythonsdk_hostscache.json
