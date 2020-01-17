@@ -81,3 +81,6 @@ class Images(db.Model):
             'created': time_format(self.created)
         }
 
+    def to_admin(self):
+        return self.to_list()
+
