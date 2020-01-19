@@ -59,7 +59,7 @@ class Add(MethodView):
 
             return redirect(url_for('bp_admin.post'))
 
-        flash(u'添加失败', 'info')
+        flash(u'添加失败', 'success')
 
         return redirect(url_for('bp_admin.post'))
 
@@ -109,7 +109,7 @@ class Edit(MethodView):
             elif inlet == 2:
                 return redirect(url_for('bp_admin.post'))
 
-        flash(u'编辑成功', 'info')
+        flash(u'编辑成功', 'success')
         if inlet == 1:
             return redirect(url_for('bp_post.detail', id=id))
         elif inlet == 2:

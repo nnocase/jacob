@@ -312,7 +312,7 @@ class ImagesAdd(MethodView):
         try:
             db.session.add(img)
             db.session.commit()
-            flash('添加成功! url: %s' % fill_domain(url), 'info')
+            flash('添加成功! url: %s' % fill_domain(url), 'success')
         except Exception as e:
             db.session.rollback()
             print(traceback.format_exc())
@@ -365,6 +365,6 @@ bp.add_url_rule('/message/del', view_func=MessageDel.as_view('message_del'))
 
 # 图片
 bp.add_url_rule('/images', view_func=ImagesList.as_view('images'))
-bp.add_url_rule('images/add', view_func=ImagesAdd.as_view('images_add'))
+bp.add_url_rule('/images/add', view_func=ImagesAdd.as_view('images_add'))
 bp.add_url_rule('/images/del', view_func=ImagesDel.as_view('images_del'))
 
