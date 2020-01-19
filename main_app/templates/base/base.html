@@ -4,11 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="层楼个人博客">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logos/favicon.ico') }}"/>
-  <link rel="bookmark" href="{{ url_for('static', filename='images/logos/favicon.ico') }}"/>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logos/favicon1.ico') }}"/>
+  <link rel="bookmark" href="{{ url_for('static', filename='images/logos/favicon1.ico') }}"/>
   <meta name="author" content="aon">
-  <meta >
-  <title>层楼</title>
+  <title>{% block stitle %}{% endblock %}--层楼</title>
   <!-- Bootstrap core CSS -->
   <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Custom fonts for this template -->
