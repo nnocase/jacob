@@ -25,11 +25,11 @@
     </style>
 </head>
 <body style="padding-top: 2%;">
-    <div class="click_upload">
+    <form action="{{ url_for('bp_admin.images_add') }}" method="post" class="col-lg-10 m-auto" enctype="multipart/form-data">
+      <input type="file" name="image" id="image" style="display: none;">
+      <div class="click_upload">
         <i class="fa fa-fw fa-plus" style="font-size: 100px;color: #DEE2E6;position: relative; top:40%"></i>
-    </div>
-    <form action="{{ url_for('bp_admin.images_add') }}" method="post" class="col-lg-8 m-auto" enctype="multipart/form-data">
-      <input type="file" name="image" id="image">
+      </div>
       <br>
       <div class="form-group row">
         <label class="col-sm-9 col-form-label text-right"></label>
@@ -43,17 +43,19 @@
 <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 <script type="text/javascript">
     $(".click_upload").click(function () {
-        $("#image").click();
-        $("#image").change(function(e) {
+        $(this).parent().find("input[name=image]").click();
+        $("input[name=image]").change(function(e) {
             var reader = new FileReader();
             var img_path;
+            var this_ = $(this);
             reader.onload = (function (file) {
                 return function (e) {
                     img_path = this.result; // base64的数据
-                    $(".click_upload").html('<img src="'+ img_path +'" style="width: 80%; height: 590px">');
+                    this_.parent().find('div[class=click_upload]').html('<img src="'+ img_path +'" style="width: 80%; height: 590px">');
                 };
             })(e.target.files[0]);
             reader.readAsDataURL(e.target.files[0]);
+            console.log(">>>>", $("input[name=image]").val())
         });
     })
 </script>
