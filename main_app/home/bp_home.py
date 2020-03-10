@@ -37,7 +37,7 @@ class Home(MethodView):
         endpage = int((count / size) if (count % size == 0) else (count / size + 1))
 
         return render_template('home/index.html', site=site, items=items, cate_items=cate_items,
-                               page=page, endpage=endpage)
+                               page=page, endpage=endpage, category_id=category_id)
 
 
 bp.add_url_rule('/', view_func=Home.as_view('home'))
