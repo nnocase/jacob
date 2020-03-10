@@ -35,7 +35,7 @@
                   <span style="font-size: 20px">标签</span>
                   <hr class="mt-1">
                   {% for c in cate_items %}
-                  <label class="border" style="font-size: 16px;padding: 0 3px;">
+                  <label class="border {% if c.id == category_id %}border-info text-info{% endif %}" style="font-size: 16px;padding: 0 3px;">
                       <a href="{{ url_for('bp_home.home', category_id=c.id) }}" style="text-decoration: none">
                           {{ c.name }}
                       </a>
