@@ -47,6 +47,22 @@ class Config(object):
         }
     }
 
+    LOGGING = {  # 配置日志
+        'SMTP':{ # 邮箱日志发送， 如果没有配置， 则不开启
+            'HOST': 'smtp.exmail.qq.com', # smtp 服务器地址
+            "TOADDRS": ['1490766077@qq.com'], # 收件人
+            'PORT': 465,
+            'SUBJECT': u'jacob', # smtp 主题
+            'USER': '1490766077@qq.com', # smtp账号
+            'PASSWORD': 'JmditfWY$$hNpSJYQj', # smtp账号密码
+        },  
+        'FILE':{ # 文件日志， 如果没有对应的配置，则不开启
+            'PATH': os.environ.get('LOG_PATH'),
+            'MAX_BYTES': 1024 * 1024 * 100, # 单个文件大小默认10M
+            'BACKUP_COUNT': 5, # 文件滚动数量，默认5
+        }
+    }
+
 
 class DevConfig(Config):
     """开发环境配置信息"""
