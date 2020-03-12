@@ -54,7 +54,7 @@ class Config(object):
             'PORT': 465,
             'SUBJECT': u'jacob', # smtp 主题
             'USER': '1490766077@qq.com', # smtp账号
-            'PASSWORD': 'JmditfWY$$hNpSJYQj', # smtp账号密码
+            'PASSWORD': os.environ.get('STMP_PASSWORD'), # smtp账号密码
         },  
         'FILE':{ # 文件日志， 如果没有对应的配置，则不开启
             'PATH': os.environ.get('LOG_PATH'),
