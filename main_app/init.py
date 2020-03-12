@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup as bs
 
 from models import base
 from services.accounts import auth
+from lib.flask_logging import enable_logging
 
 
 def prettify(html):
@@ -27,6 +28,7 @@ def create_app(config=None):
     config = config or 'config.Config'
     app.config.from_object(config)
     
+    register_logger(app)
     Markdown(app)
     register_blueprints(app)
     register_error_handler(app)
@@ -39,6 +41,12 @@ def create_app(config=None):
 
     return app
 
+
+def register_logger(app):
+    """日志"""
+    if app.debug:
+        return
+    enable_logging(app)
 
 def register_blueprints(app):
     """添加和注册蓝图"""
