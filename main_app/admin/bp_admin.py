@@ -303,7 +303,6 @@ class ImagesAdd(MethodView):
 
     def post(self):
         image = request.files.get('image')
-        print(">>>>", image)
         if not image:
             flash('获取图片失败', 'danger')
             return redirect(url_for('bp_admin.images'))
