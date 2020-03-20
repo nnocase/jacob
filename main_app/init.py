@@ -117,3 +117,32 @@ def register_error_handler(app):
     @app.errorhandler(504)
     def err_504(error):
         return render_template('base/504.html')
+
+
+def register_before_request(app):
+    @app.before_request
+    def before_request():
+        """请求验证"""
+        path = request.path
+        if path and path.startswith("/static/"):
+            return
+
+        if not current_user.is_authenticated:
+            if path != "/auth/login":
+                return redirect("/auth/login")
+
+        current_user.last_login = datetime.now()
+        base.db.session.commit()
+        # 操作日志记录文件
+        json_form_data = {key: dict(request.form)[key] for key in dict(request.form)}
+        json_args_data = {key: dict(request.args)[key] for key in dict(request.args)}
+        referer = request.headers.get('Referer')
+        x_real_ip = request.headers.get('X-Real-Ip')
+
+        if current_user.is_authenticated:
+            _str = str(referer) + ' ' + str(path) + ' ' + str(x_real_ip) + ' ' \
+                   + str(current_user.id) + ' ' + str(current_user.phone) + ' ' \
+                   + str(current_user.username) + ' ' + str(json_args_data) + ' ' + \
+                   str(json_form_data) + ' ' + str(datetime.now())
+            with open(app.config["OPERATION_LOG"], 'a+') as f:
+                f.write(_str + '\n')
