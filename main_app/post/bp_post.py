@@ -59,7 +59,7 @@ class Add(MethodView):
 
             return redirect(url_for('bp_admin.post'))
 
-        flash(u'添加失败', 'success')
+        flash(u'添加成功', 'success')
 
         return redirect(url_for('bp_admin.post'))
 
