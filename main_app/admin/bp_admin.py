@@ -301,6 +301,7 @@ class ImagesAdd(MethodView):
 
         return render_template('admin/images_add.html')
 
+    @login_required
     def post(self):
         image = request.files.get('image')
         if not image:
