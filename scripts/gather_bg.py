@@ -40,9 +40,9 @@ class BingBG(Command):
             db.session.add(img)
             db.session.commit()
         except Exception as e:
-            print('存入失败')
+            print('存入bing失败')
             db.session.rollback()
 
-        print('存入成功')
+        print('存入bing成功')
 
 
