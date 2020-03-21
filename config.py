@@ -35,7 +35,7 @@ class Config(object):
     CELERY_BROKEY = "redis://:{}@{}:{}/{}".format(REDIS_CONFIG['PASS'], REDIS_CONFIG['HOST'],
                                             REDIS_CONFIG['PORT'], REDIS_CONFIG['CELERY_DB'])
 
-    DOMAIN = 'http://www.icenglou.cn'
+    DOMAIN = 'https://www.icenglou.cn'
     OPERATION_LOG = os.environ.get('OPERATION_LOG')
 
     QINIU_IMG_HOST = 'img.icenglou.cn'
