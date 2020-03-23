@@ -49,7 +49,7 @@ class Config(object):
 
     LOGGING = {  # 配置日志
         'SMTP':{ # 邮箱日志发送， 如果没有配置， 则不开启
-            'HOST': 'smtp.exmail.qq.com', # smtp 服务器地址
+            'HOST': 'smtp.mail.qq.com', # smtp 服务器地址
             "TOADDRS": ['1490766077@qq.com'], # 收件人
             'PORT': 465,
             'SUBJECT': u'jacob', # smtp 主题
