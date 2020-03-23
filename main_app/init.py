@@ -5,8 +5,10 @@ Date: 2019-12-09
 Author: xgf
 """
 import os
+from datetime import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, current_app, redirect
+from flask_login import current_user
 from redis import Redis
 from flaskext.markdown import Markdown
 from bs4 import BeautifulSoup as bs
@@ -35,6 +37,7 @@ def create_app(config=None):
     register_db(app)
     register_auth(app)
     register_redis(app)
+    register_before_request(app)
     configure_session(app)
     # register custom filter in flask app
     app.jinja_env.filters['prettify'] = prettify
@@ -127,9 +130,9 @@ def register_before_request(app):
         if path and path.startswith("/static/"):
             return
 
-        if not current_user.is_authenticated:
-            if path != "/auth/login":
-                return redirect("/auth/login")
+        # if not current_user.is_authenticated:
+        #     if path != "/auth/login":
+        #         return redirect("/auth/login")
 
         current_user.last_login = datetime.now()
         base.db.session.commit()
@@ -141,7 +144,7 @@ def register_before_request(app):
 
         if current_user.is_authenticated:
             _str = str(referer) + ' ' + str(path) + ' ' + str(x_real_ip) + ' ' \
-                   + str(current_user.id) + ' ' + str(current_user.phone) + ' ' \
+                   + str(current_user.id) + ' ' + str(current_user.name) + ' ' \
                    + str(current_user.username) + ' ' + str(json_args_data) + ' ' + \
                    str(json_form_data) + ' ' + str(datetime.now())
             with open(app.config["OPERATION_LOG"], 'a+') as f:
