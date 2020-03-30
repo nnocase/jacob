@@ -41,5 +41,5 @@ class Home(MethodView):
 
 
 bp.add_url_rule('/', view_func=Home.as_view('home'))
-app.add_url_rule('/favicon.ico',
+bp.add_url_rule('/favicon.ico',
                  redirect_to=url_for('static', filename='favicon.ico'))
