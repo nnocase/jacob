@@ -4,7 +4,9 @@ Description: 首页
 Author: xgf
 Date: 2019-12-11
 """
-from flask import Blueprint, render_template, current_app
+import os
+
+from flask import Blueprint, render_template, current_app, url_for, send_from_directory
 from flask.views import MethodView
 
 from lib._flask import request_args
@@ -39,7 +41,11 @@ class Home(MethodView):
         return render_template('home/index.html', site=site, items=items, cate_items=cate_items,
                                page=page, endpage=endpage, category_id=category_id)
 
+class Favicon(MethodView):
+    def get(self):
+
+        return send_from_directory(os.path.join(current_app.root_path, 'static'),
+                            'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 bp.add_url_rule('/', view_func=Home.as_view('home'))
-bp.add_url_rule('/favicon.ico',
-                 redirect_to=url_for('static', filename='favicon.ico'))
+bp.add_url_rule('/favicon.ico', view_func=Favicon.as_view("favicon"))
