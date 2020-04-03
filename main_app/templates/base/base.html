@@ -103,7 +103,7 @@
         <div class="col-lg-10 col-md-10 mx-auto">
           <ul class="list-inline text-center">
             <li class="list-inline-item">分享到：
-              <a href="#" class="share" data-type="qq">
+              <a href="#" class="share" data-type="qq" title="分享到QQ">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-qq fa-stack-1x fa-inverse"></i>
@@ -111,7 +111,7 @@
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#" class="share" data-type="weixin">
+              <a href="#" class="share" data-type="weixin" title="分享到微信">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
@@ -119,10 +119,18 @@
               </a>
             </li>
             <li class="list-inline-item">
-              <a href="#" class="share" data-type="weibo">
+              <a href="#" class="share" data-type="weibo" title="分享到微博">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-weibo fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="{{ url_for('bp_home.rss') }}" class="share" data-type="rss" title="RSS订阅">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
             </li>
