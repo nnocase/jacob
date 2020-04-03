@@ -47,5 +47,18 @@ class Favicon(MethodView):
         return send_from_directory(os.path.join(current_app.root_path, 'static'),
                             'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+
+class Rss(MethodView):
+    def get(self):
+        # rss_xml = render_template('rss.xml')
+        # response = make_response(rss_xml)
+        # response.headers['Content-Type'] = 'application/rss+xml'
+        # return response
+
+        return send_from_directory(os.path.join(current_app.root_path, 'static'),
+                                    'cenglou.xml', mimetype="application/rss+xml")
+
+
 bp.add_url_rule('/', view_func=Home.as_view('home'))
 bp.add_url_rule('/favicon.ico', view_func=Favicon.as_view("favicon"))
+bp.add_url_rule('/rss', view_func=Rss.as_view("rss"))
