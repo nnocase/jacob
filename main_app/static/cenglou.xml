@@ -9,14 +9,13 @@
     <generator>Feed43 Proxy/1.0 (www.feed43.com)</generator>
     <ttl>360</ttl>
 
-<item>
-<guid isPermaLink="false">4e1400f975a205020077aab89fc7436f</guid>
-<pubDate>Fri, 03 Apr 2020 11:45:32 GMT</pubDate>
-<title>公告刚上线，正在测试，敬请期待。</title>
-<link>http://www.icenglou.cn/post/detail?id=1</link>
-<description><![CDATA[以上<2020-03-21 20:55:08<p><sub><i>-- Delivered by <a href="http://feed43.com/">Feed43</a> service</i></sub></p>
-]]></description>
-</item>
+    <item>
+    <guid isPermaLink="false">4e1400f975a205020077aab89fc7436f</guid>
+    <pubDate>Fri, 03 Apr 2020 11:45:32 GMT</pubDate>
+    <title>公告刚上线，正在测试，敬请期待。</title>
+    <link>http://www.icenglou.cn/post/detail?id=1</link>
+    <description><![CDATA[以上<2020-03-21 20:55:08]]></description>
+    </item>
 
 
   </channel>
