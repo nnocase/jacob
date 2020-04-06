@@ -3,7 +3,9 @@
 {% block stitle %}关于{% endblock %}
 {% block title %}关于我{% endblock %}
 {% block sub_title %}Just Do IT!{% endblock %}
-
+{% block css %}
+<link href="{{ url_for('static', filename='css/highlight.css') }}" rel="stylesheet">
+{% endblock %}
 {% block content %}
   <!-- Main Content -->
   <div class="container">
@@ -13,4 +15,32 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/highlight.js') }}"></script>
+<script type="text/javascript">
+    $('pre').css({"background-color":"#EFF0EF", "padding": "10px",
+      "border": "1px solid #CBCCCB","border-radius":"5px", "font-size":"14px"});
+
+    $('article a').css({"text-decoration":"none", "color": "#17A1B7", "font-size": "16px"});
+
+    $('p img').parent().css({
+       "width":"100%",
+       "height":"300px",
+       "display":"block",
+       "text-align":"center",
+    });
+
+    $('p img').css({"max-width": "100%", "max-height": "100%", "display": "inline"});
+
+    $('.toc li').css({"list-style": "none"});
+    $('.toc ul').css({"padding-left": "20px"});
+    $('.toc').css({
+        "position": "fixed",
+        "right": "150px",
+        "border-left": "1px solid #EFF0EF",
+    });
+</script>
 {% endblock %}
