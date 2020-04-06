@@ -5,7 +5,6 @@ Date: 2019-12-13
 Author: xgf
 """
 import datetime
-from random import choice
 
 from flask import Blueprint, render_template
 from flask.views import MethodView
