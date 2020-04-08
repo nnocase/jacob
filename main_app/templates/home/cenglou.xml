@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/res/preview.xsl"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.blog_title }}</title>
+    <link>http://www.icenglou.cn</link>
+    <description><![CDATA[{{ site.blog_sub_title }}]]></description>
+    <lastBuildDate></lastBuildDate>
+    <generator></generator>
+    <ttl>360</ttl>
+    {% for item in items %}
+    <item>
+    <guid isPermaLink="false">{{ item.guid }}</guid>
+    <pubDate>{{ item.created }}</pubDate>
+    <title>{{ item.title }}</title>
+    <link>{{ url_for('bp_post.detail', id=item.id) }}</link>
+    <description><![CDATA[{{ item.body|truncate(255, True)|safe }}<{{ item.created }}]]></description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>
