@@ -31,7 +31,7 @@ class GatherBG(Command):
 
 
 class BingBG(Command):
-    """Bing背景图"""
+    """Bing背景图 每天0点运行"""
     def run(self):
         url = "https://api.meowv.com/common/bing"
         filename = upload_by_url(url)
