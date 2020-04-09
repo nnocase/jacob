@@ -58,14 +58,11 @@ class Rss(MethodView):
         size = request_args('size', type=int, default=20)
         site = Admin.query.filter_by(is_use=True).first()
         site = site.to_admin()
-        query = Posts.query.filter_by(is_use=True).order_by(Posts.id.desc())
+        query = Posts.query.filter_by(is_use=True)
 
         count = query.count() or int(1)
         posts = query.limit(size).offset((page-1) * size).all()
         items = [p.to_home() for p in posts]
-        for i, item in enumerate(items):
-            guid = md5(str(int(time.time()*i)).encode('utf8'))
-            item['guid'] = guid
 
         template = render_template('home/cenglou.xml', site=site, items=items)
         response = make_response(template)
