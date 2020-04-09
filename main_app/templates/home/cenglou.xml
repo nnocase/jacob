@@ -10,7 +10,7 @@
     <ttl>360</ttl>
     {% for item in items %}
     <item>
-    <guid isPermaLink="false">{{ item.guid }}</guid>
+    <guid isPermaLink="false">{{ url_for('bp_post.detail', id=item.id) }}</guid>
     <pubDate>{{ item.created }}</pubDate>
     <title>{{ item.title }}</title>
     <link>{{ url_for('bp_post.detail', id=item.id) }}</link>
