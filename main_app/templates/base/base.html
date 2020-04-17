@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="层楼个人博客">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logos/favicon.ico') }}"/>
-  <link rel="bookmark" href="{{ url_for('static', filename='images/logos/favicon.ico') }}"/>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logos/favicon.ico') }}" />
+  <link rel="bookmark" href="{{ url_for('static', filename='images/logos/favicon.ico') }}" />
   <meta name="author" content="aon">
   <title>{% block stitle %}{% endblock %}--层楼</title>
   <!-- Bootstrap core CSS -->
   <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <!-- Custom fonts for this template -->
-  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+    type="text/css">
   <!-- Custom styles for this template -->
   <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
   {% block style %}{% endblock %}
   <style type="text/css">
-      #wxqrcode {
-        position: absolute;
-        background-color: white;
-        border:1px solid #EDEEED;
-        border-radius: 5px;
-        padding: 0 2px;
-        height: 400px;
-        left: 50%;
-        top: 35%;
-        box-sizing: border-box;
-        transform: translate(-50%, -20%);
-        display: none;
-        z-index: 10;
-      }
-      #close:hover{
-        cursor: pointer;
-      }
+    #wxqrcode {
+      position: absolute;
+      background-color: white;
+      border: 1px solid #EDEEED;
+      border-radius: 5px;
+      padding: 0 2px;
+      height: 400px;
+      left: 50%;
+      top: 35%;
+      box-sizing: border-box;
+      transform: translate(-50%, -20%);
+      display: none;
+      z-index: 10;
+    }
+
+    #close:hover {
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -42,7 +45,9 @@
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('bp_home.home') }}">层楼</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
@@ -84,9 +89,12 @@
   <!-- Main Content -->
   <div id="wxqrcode">
     <p class="text-right m-0">
-        <svg t="1577278693599" id="close" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5973" width="20" height="20">
-            <path d="M510.165333 453.482667L270.634667 213.952l-60.330667 60.352 239.530667 239.530667L210.304 753.365333l60.330667 60.330667 239.530666-239.530667L512 576l1.834667-1.834667 239.530666 239.530667 60.330667-60.330667-239.530667-239.530666 239.530667-239.530667-60.330667-60.352-239.530666 239.530667-1.834667-1.813334z" p-id="5974"></path>
-        </svg>
+      <svg t="1577278693599" id="close" class="icon" viewBox="0 0 1024 1024" version="1.1"
+        xmlns="http://www.w3.org/2000/svg" p-id="5973" width="20" height="20">
+        <path
+          d="M510.165333 453.482667L270.634667 213.952l-60.330667 60.352 239.530667 239.530667L210.304 753.365333l60.330667 60.330667 239.530666-239.530667L512 576l1.834667-1.834667 239.530666 239.530667 60.330667-60.330667-239.530667-239.530666 239.530667-239.530667-60.330667-60.352-239.530666 239.530667-1.834667-1.813334z"
+          p-id="5974"></path>
+      </svg>
     </p>
     <img alt="请用微信扫描二维码" id="qrcode" style="padding: 0 10px;margin-bottom: 10px">
     <p class="text-center m-0">请用微信扫码分享</p>
@@ -95,7 +103,8 @@
   {% endblock %}
 
   {% block footer %}
-  <a href="{{ url_for('bp_admin.user') }}"><hr></a>
+  <a href="{{ url_for('bp_admin.user') }}">
+    <hr></a>
   <!-- Footer -->
   <footer style="padding: 0">
     <div class="container">
@@ -136,10 +145,22 @@
             </li>
           </ul>
           <p class="copyright text-muted">Copyright &copy;
-              <a href="http://www.icenglou.cn" style="text-decoration: none">www.icenglou.cn</a>
-              <img src="{{ url_for('static', filename='images/beian.png') }}">
-              <a href="http://www.beian.miit.gov.cn/"style="text-decoration: none" target="_blank">赣ICP备20000788号-1</a>
-              本站已运行<small id="htmer_time"></small>
+            <a href="http://www.icenglou.cn" style="text-decoration: none">www.icenglou.cn</a>
+            <img src="{{ url_for('static', filename='images/beian.png') }}">
+            <a href="http://www.beian.miit.gov.cn/" style="text-decoration: none" target="_blank">赣ICP备20000788号-1</a>
+            本站已安全运行了
+            <b>
+              <strong>
+                <script language="JavaScript" type="text/javascript">
+                  var urodz = new Date("03/18/2020");
+                  var now = new Date();
+                  var ile = now.getTime() - urodz.getTime();
+                  var dni = Math.floor(ile / (1000 * 60 * 60 * 24));
+                  document.write(+ dni)
+                </script>
+              </strong>
+            </b>
+            天
           </p>
         </div>
       </div>
@@ -151,10 +172,9 @@
   <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Custom scripts for this template -->
   <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/sitetime.js') }}"></script>
   {% block js %}{% endblock %}
   <script type="text/javascript">
-    $(".share").click(function (){
+    $(".share").click(function () {
       var stype = $(this).data('type');
       //获取文章标题
       var ftit = window.document.title;
@@ -165,12 +185,12 @@
       var host = window.location.host;
       var description = window.document.querySelector('meta[name="description"]').getAttribute('content');
 
-      if(typeof flink == 'undefined'){
-          flink='';
+      if (typeof flink == 'undefined') {
+        flink = '';
       }
       //当内容中没有图片时，设置分享图片为网站logo
-      if(flink == ''){
-          lk = 'http://'+ host +'/favicon.ico';
+      if (flink == '') {
+        lk = 'http://' + host + '/favicon.ico';
       }
       // //百度编辑器自带图片获取
       // if(flink.indexOf('ueditor') != -1){
@@ -179,54 +199,55 @@
       //qq空间接口的传参
 
       console.log(ftit, flink, lk, url, host, description);
-      if(stype=='qzone'){
-          window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+url+'&title='+ftit+'&pics='+lk+'&summary='+description);
+      if (stype == 'qzone') {
+        window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=' + url + '&title=' + ftit + '&pics=' + lk + '&summary=' + description);
       }
       //新浪微博接口的传参
-      if(stype=='weibo'){
-          window.open('http://service.weibo.com/share/share.php?url='+url+'&title='+ftit+'&pic='+lk+'&appkey=2706825840');
+      if (stype == 'weibo') {
+        window.open('http://service.weibo.com/share/share.php?url=' + url + '&title=' + ftit + '&pic=' + lk + '&appkey=2706825840');
       }
       //qq好友接口的传参
-      if(stype == 'qq'){
-          window.open('http://connect.qq.com/widget/shareqq/index.html?url='+url+'&title='+ftit+'&pics='+lk+'&summary='+description);
+      if (stype == 'qq') {
+        window.open('http://connect.qq.com/widget/shareqq/index.html?url=' + url + '&title=' + ftit + '&pics=' + lk + '&summary=' + description);
       }
       //生成二维码给微信扫描分享，也可以用jquery.qrcode.js插件实现二维码生成
-      if(stype == 'weixin'){
-            $.ajax({
-                url: '/tool/share/wxqrcode',
-                data: {url:url},
-                type: 'get',
-                dataType: 'json',
-                success: function (ret) {
-                    if (ret.code == 1001){
-                        console.log(ret.datas);
-                        $('#qrcode').attr('src', ret.datas);
-                        $('#wxqrcode').show();
-                    }else {
+      if (stype == 'weixin') {
+        $.ajax({
+          url: '/tool/share/wxqrcode',
+          data: { url: url },
+          type: 'get',
+          dataType: 'json',
+          success: function (ret) {
+            if (ret.code == 1001) {
+              console.log(ret.datas);
+              $('#qrcode').attr('src', ret.datas);
+              $('#wxqrcode').show();
+            } else {
 
-                    }
-                }
-            })
+            }
+          }
+        })
       }
-  });
-
-    $("#close").click(function () {
-        $('#wxqrcode').hide();
     });
 
-    function random_bg(){
-        $.ajax({
-            url: "{{ url_for('bp_tool.random_bg') }}",
-            type: "get",
-            dataType: "json",
-            success: function (ret) {
-                if(ret.code==1001){
-                    $("header").css("background-image", "url("+ret.datas+")")
-                }
-            }
-        });
+    $("#close").click(function () {
+      $('#wxqrcode').hide();
+    });
+
+    function random_bg() {
+      $.ajax({
+        url: "{{ url_for('bp_tool.random_bg') }}",
+        type: "get",
+        dataType: "json",
+        success: function (ret) {
+          if (ret.code == 1001) {
+            $("header").css("background-image", "url(" + ret.datas + ")")
+          }
+        }
+      });
     }
     random_bg();
   </script>
 </body>
+
 </html>
