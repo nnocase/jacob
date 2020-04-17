@@ -139,6 +139,7 @@
               <a href="http://www.icenglou.cn" style="text-decoration: none">www.icenglou.cn</a>
               <img src="{{ url_for('static', filename='images/beian.png') }}">
               <a href="http://www.beian.miit.gov.cn/"style="text-decoration: none" target="_blank">赣ICP备20000788号-1</a>
+              本站已运行<small id="htmer_time"></small>
           </p>
         </div>
       </div>
@@ -150,6 +151,7 @@
   <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Custom scripts for this template -->
   <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/sitetime.js') }}"></script>
   {% block js %}{% endblock %}
   <script type="text/javascript">
     $(".share").click(function (){
