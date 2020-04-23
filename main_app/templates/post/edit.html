@@ -59,7 +59,7 @@
             placeholder: "请输入正文……",
             imageUpload    : true,
             imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL : "",
+            imageUploadURL : "{{ url_for('bp_tool.editor_upload') }}",
         });
     });
 
