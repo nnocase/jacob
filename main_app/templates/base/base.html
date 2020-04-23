@@ -37,6 +37,35 @@
       cursor: pointer;
     }
   </style>
+  <style>
+    #scrollSearchDiv{
+      position:fixed;
+      bottom: 80px;
+      right: 15px;
+      width: 50px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 40px;
+    }
+    .add{
+      position:fixed;
+      bottom: 120px;
+      right: 15px;
+      width: 50px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 24px;
+    }
+    .edit{
+      position:fixed;
+      bottom: 150px;
+      right: 15px;
+      width: 50px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 23px;
+    }
+  </style>
 </head>
 
 <body>
@@ -99,8 +128,20 @@
     <img alt="请用微信扫描二维码" id="qrcode" style="padding: 0 10px;margin-bottom: 10px">
     <p class="text-center m-0">请用微信扫码分享</p>
   </div>
-  {% block content %}
-  {% endblock %}
+
+  {% if current_user.is_authenticated %}
+  <div class="add">
+    <a href="{{ url_for('bp_post.add') }}" id="add" title="添加文章">
+        <i class="fas fa-plus"></i>
+    </a>
+  </div>
+  {% endif %}
+  <div id="scrollSearchDiv">
+      <a id="go" title="回到顶部"><i class="fas fa-angle-up"></i></a>
+  </div>
+  {% block edit %}{% endblock %}
+
+  {% block content %}{% endblock %}
 
   {% block footer %}
   <a href="{{ url_for('bp_admin.user') }}">
@@ -248,6 +289,46 @@
     }
     random_bg();
   </script>
-</body>
+  <script>
+  // 返回顶部
+  $(function () {
+    //绑定滚动条事件
+    $(window).bind("scroll", function () {
+        var sTop = $(window).scrollTop();
+        var sTop = parseInt(sTop);
+        if (sTop >= 130) {
+            if (!$("#scrollSearchDiv").is(":visible")) {
+                try {
+                    $("#scrollSearchDiv").slideDown();
+                } catch (e) {
+                    $("#scrollSearchDiv").show();
+                }
+            }
+        }
+        else {
+            if ($("#scrollSearchDiv").is(":visible")) {
+                try {
+                    $("#scrollSearchDiv").slideUp();
+                } catch (e) {
+                    $("#scrollSearchDiv").hide();
+                }
+            }
+        }
+    });
+  });
 
+  jQuery.fn.myScrollTo = function(speed) {
+    var targetOffset = $(this).offset().top;
+    console.log(targetOffset);//去除默认样式后是 0
+    //$(this).offset()：获得位移对象（此时其实啥也没做）
+    //$(this).offset().top：获得位移高度
+    $('html,body').stop().animate({scrollTop: targetOffset}, speed);
+    return this;
+  };
+  $("#go").click(function(){
+    $("body").myScrollTo(500);//调用，并传入速度
+    return false;//阻止默认事件
+  });
+  </script>
+</body>
 </html>
