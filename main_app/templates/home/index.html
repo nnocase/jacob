@@ -12,14 +12,18 @@
                 <div class="post-preview border border-top-0 border-left-0 border-right-0">
                     <a href="{{ url_for('bp_post.detail', id=item.id) }}">
                       <p class="post-title">
-                        <span style="font-size: 24px">{{ item.title }}</span>
-                        <label class="border" style="font-size: 12px;padding: 0 3px;">{{ item.category_name }}</label>
-                        <span style="font-size: 14px; float: right;padding-top: 30px">{{ item.created }}</span>
+                        <span style="font-size: 24px">{{ item.title }}</span> 
                       </p>
                     </a>
                     <p class="mt-1 mb-2" style="font-size: 16px;color: #6A6B6A">
                       {{ item.body|truncate(255, True)|safe }}
                     </p>
+                    <label class="label label-primary border" style="font-size: 12px;padding: 0 3px;">
+                      <a href="{{ url_for('bp_home.home', category_id=item.category_id) }}" style="text-decoration: none">
+                        {{ item.category_name }}
+                      </a>
+                    </label>
+                    <span style="font-size: 14px; float: right;">{{ item.created }}</span>
                 </div>
             {% endfor %}
             <br>
