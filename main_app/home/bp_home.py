@@ -6,15 +6,18 @@ Date: 2019-12-11
 """
 import os
 import time
+import datetime
 from lib.utils import md5
 
 from flask import (Blueprint, render_template, current_app, url_for, 
                     send_from_directory, make_response)
 from flask.views import MethodView
+from sqlalchemy import extract
 
 from lib._flask import request_args
 from models.posts.posts import Posts, Categorys
 from models.users.users import Admin, Images
+from models.base import db
 
 bp = Blueprint('bp_home', __name__)
 
@@ -41,8 +44,10 @@ class Home(MethodView):
             query = query.filter_by(category_id=category_id)
         
         if year_month:
-            query = query.filter(Posts.created>=year_month + "-01",
-                                Posts.created<=year_month + "-31")
+            year = int(year_month.split('-')[0])
+            month = int(year_month.split('-')[1])
+            query = db.session.query(Posts).filter(extract('year', Posts.created)==year, 
+                    extract('month', Posts.created)==month)
 
         count = query.count() or int(1)
         posts = query.limit(size).offset((page-1) * size).all()
