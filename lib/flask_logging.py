@@ -71,6 +71,7 @@ def emit(self, record):
 
 
 def enable_logging(app):
+    print(">>>>>>>>>>>>日志系统",)
     logging.handlers.SMTPHandler.emit = emit
     config = app.config['LOGGING']
     config_mail = config.get('SMTP')
