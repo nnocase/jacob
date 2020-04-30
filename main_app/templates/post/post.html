@@ -16,7 +16,7 @@
   {% if current_user.is_authenticated %}
   <div class="edit">
     <a href="{{ url_for('bp_post.edit', id=item.id, inlet=1) }}" id="edit" title="修改文章">
-        <i class="fas fa-edit"></i>
+        <i class="fas fa-pen-square"></i>
     </a>
   </div>
   {% endif %}

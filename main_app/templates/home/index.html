@@ -35,7 +35,7 @@
             {% endif %}
           </div>
           <div class="col-lg-3 col-md-2 mt-5 p-0">
-              <div class="p-2 border">
+              <div class="p-2 mb-2 border">
                   <span style="font-size: 20px">标签</span>
                   <hr class="mt-1">
                   {% for c in cate_items %}
@@ -46,6 +46,20 @@
                   </label>
                   {% endfor %}
               </div>
+
+              <div class="p-2 border">
+                <span style="font-size: 20px">归档</span>
+                <hr class="mt-1">
+                {# 列表分组，每组是一个子列表，组名就是分组项的值 #}
+                <ul style="font-size: 16px">
+                {% for group in archives|groupby('year_month') %}
+                  <li>
+                    <a href="{{ url_for('bp_home.home', year_month=group.grouper) }}">
+                      {{ group.grouper }}
+                    </a>
+                  </li>
+                {% endfor %}
+            </div>
           </div>
       </div>
     </div>
