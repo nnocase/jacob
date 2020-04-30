@@ -61,6 +61,7 @@ def register_blueprints(app):
     from main_app.link import bp_link
     from main_app.admin import bp_admin
     from main_app.tool import bp_tool
+    from main_app.wechat import bp_pub_account
 
     app.register_blueprint(bp_home.bp, url_prefix='/')  # 首页
     app.register_blueprint(bp_auth.bp, url_prefix='/auth')  # 登录模块
@@ -70,6 +71,7 @@ def register_blueprints(app):
     app.register_blueprint(bp_link.bp, url_prefix='/link')  # 友链
     app.register_blueprint(bp_admin.bp, url_prefix='/admin')  # 管理后台
     app.register_blueprint(bp_tool.bp, url_prefix='/tool')  # 工具
+    app.register_blueprint(bp_pub_account, url_prefix='/wechat/pub/account') # 微信公众号    
 
 
 def register_db(app):
