@@ -25,9 +25,13 @@ class Home(MethodView):
         page = request_args('page', type=int, default=1)
         size = request_args('size', type=int, default=20)
         category_id = request_args('category_id', type=int, default=0)
+        year_month = request_args('year_month', type=str, default='')
 
         category = Categorys.query.filter_by(is_use=True).all()
         cate_items = [c.to_admin() for c in category]
+
+        posts = Posts.query.filter_by(is_use=True).all()
+        archives = [p.to_archive() for p in posts]
 
         site = Admin.query.filter_by(is_use=True).first()
         site = site.to_admin()
@@ -35,6 +39,10 @@ class Home(MethodView):
         query = Posts.query.filter_by(is_use=True).order_by(Posts.id.desc())
         if category_id:
             query = query.filter_by(category_id=category_id)
+        
+        if year_month:
+            query = query.filter(Posts.created>=year_month + "-01",
+                                Posts.created<=year_month + "-31")
 
         count = query.count() or int(1)
         posts = query.limit(size).offset((page-1) * size).all()
@@ -42,7 +50,7 @@ class Home(MethodView):
         endpage = int((count / size) if (count % size == 0) else (count / size + 1))
 
         return render_template('home/index.html', site=site, items=items, cate_items=cate_items,
-                               page=page, endpage=endpage, category_id=category_id)
+                               page=page, endpage=endpage, category_id=category_id, archives=archives)
 
 
 class Favicon(MethodView):
