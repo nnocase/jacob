@@ -89,6 +89,11 @@ class Posts(db.Model):
 
         return post
 
+    def to_archive(self):
+        return {
+            'year_month': time_format(self.created, "%Y-%m")
+        }
+
 
 class Comments(db.Model):
     """评论"""
