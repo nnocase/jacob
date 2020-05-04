@@ -18,6 +18,9 @@ import requests
 def md5(_str):
     return hashlib.md5(_str).hexdigest()
 
+def sha1(_str):
+    _str = _str.encode("utf-8")
+    return hashlib.sha1(_str).hexdigest()
 
 def time_format(created, pattern="%Y-%m-%d %H:%M:%S"):
     """处理时间格式"""
