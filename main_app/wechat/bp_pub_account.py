@@ -13,7 +13,7 @@ from lib.utils import sha1
 bp = Blueprint('bp_pub_account', __name__)
 
 
-@bp.route("/index", methods=['POST'])
+@bp.route("/index")
 def index():
     """
         @公众号服务配置
@@ -36,6 +36,6 @@ def index():
 
     # 加密后的字符串可与signature对比，标识该请求来源于微信
     if signature == mysignature:
-        return 'success'
+        return echostr
     else:
         return 'success'
