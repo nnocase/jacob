@@ -24,9 +24,9 @@ class Contact(MethodView):
 
     def post(self):
         name = request_form('name', type=str, required=True)
-        email = request_form('email', type=str)
+        email = request_form('email', type=str, default='')
         url = request_form('url', type=str, default='')
-        message = request_form('message', type=str)
+        message = request_form('message', type=str, default='')
 
         mess = Messages(name=name, email=email, url=url, message=message)
         try:
