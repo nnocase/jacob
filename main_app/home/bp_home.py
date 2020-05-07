@@ -47,7 +47,7 @@ class Home(MethodView):
             year = int(year_month.split('-')[0])
             month = int(year_month.split('-')[1])
             query = db.session.query(Posts).filter(extract('year', Posts.created)==year, 
-                    extract('month', Posts.created)==month)
+                    extract('month', Posts.created)==month, Posts.is_use=True)
 
         count = query.count() or int(1)
         posts = query.limit(size).offset((page-1) * size).all()
