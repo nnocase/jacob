@@ -55,7 +55,7 @@
                 {% for group in archives|groupby('year_month') %}
                   <li>
                     <a href="{{ url_for('bp_home.home', year_month=group.grouper) }}">
-                      {{ group.grouper }}
+                      {{ group.grouper }}({{ group[1]|length }})
                     </a>
                   </li>
                 {% endfor %}
