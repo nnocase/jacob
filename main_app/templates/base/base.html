@@ -141,6 +141,9 @@
   <div id="scrollSearchDiv">
       <a id="go" title="回到顶部"><i class="fas fa-angle-up"></i></a>
   </div>
+  <div class="float-left ml-3">
+    <img src="http://wttr.in/_0tqp_lang=zh.png?temp_C" width="250px">
+  </div>
   {% block edit %}{% endblock %}
 
   {% block content %}{% endblock %}
@@ -223,12 +226,26 @@
 
   {% block js %}{% endblock %}
   <script type="text/javascript">
+    function random_bg() {
+      $.ajax({
+        url: "{{ url_for('bp_tool.random_bg') }}",
+        type: "get",
+        dataType: "json",
+        success: function (ret) {
+          if (ret.code == 1001) {
+            $("header").css("background-image", "url(" + ret.datas + ")")
+          }
+        }
+      });
+    }
+    random_bg();
+
     $(".share").click(function () {
       var stype = $(this).data('type');
       //获取文章标题
       var ftit = window.document.title;
       //获取网页中内容的第一张图片地址作为分享图
-      var flink = window.document.images[0];
+      var flink = $("header").css("background-image").replace('url(','').replace(')','');
       var lk = '';
       var url = window.document.location.href;
       var host = window.location.host;
@@ -282,20 +299,6 @@
     $("#close").click(function () {
       $('#wxqrcode').hide();
     });
-
-    function random_bg() {
-      $.ajax({
-        url: "{{ url_for('bp_tool.random_bg') }}",
-        type: "get",
-        dataType: "json",
-        success: function (ret) {
-          if (ret.code == 1001) {
-            $("header").css("background-image", "url(" + ret.datas + ")")
-          }
-        }
-      });
-    }
-    random_bg();
   </script>
   <script>
   // 返回顶部
