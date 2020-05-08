@@ -14,6 +14,8 @@ from qiniu import Auth, put_data, put_file
 from lib.utils import md5
 
 
+ALLOWED_EXTENSIONS = set(['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG', 'gif', 'GIF'])
+
 def upload_qiniu(filename, data, mode, bucket_name='xgf', config=None):
     """上传到七牛"""
     if not config:
