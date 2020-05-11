@@ -13,6 +13,7 @@ import os
 import qrcode
 import markdown
 import requests
+from flask import request
 
 
 def md5(_str):
@@ -79,3 +80,10 @@ def save_img(picurl, filepath):
         print("下载完成")
     except Exception as e:
         print(e)
+
+
+def get_ip():
+    """获取访问者的IP"""
+    ip = request.headers.get('X-real-Ip') or request.remote_addr
+
+    return ip
