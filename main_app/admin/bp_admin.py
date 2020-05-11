@@ -17,7 +17,7 @@ from lib._qiniu import upload_data, fill_domain
 from lib.utils import markdown2html
 from models.base import db
 from models.posts.posts import Categorys, Posts, Messages
-from models.users.users import Admin, Images
+from models.users.users import Admin, Images, Visitors
 
 bp = Blueprint('bp_admin', __name__)
 
@@ -343,6 +343,20 @@ class ImagesDel(MethodView):
         return json.dumps({'code': 1001, 'message': '成功'})
 
 
+class VisitorList(MethodView):
+    """访问者列表"""
+    @login_required
+    def get(self):
+        page = request_args('page', type=int, default=1)
+        size = request_args('size', type=int, default=20)
+
+        query = Visitors.query.order_by(Visitors.id.desc())
+        visitors = query.limit(size).offset((page - 1) * size).all()
+        items = [i.to_admin() for i in visitors]
+
+        return render_template('admin/visitor.html', items=items, nav='visitors')
+
+
 # 用户
 bp.add_url_rule('/', view_func=User.as_view('user'))
 bp.add_url_rule('/add', view_func=UserAdd.as_view('user_add'))
@@ -368,4 +382,7 @@ bp.add_url_rule('/message/del', view_func=MessageDel.as_view('message_del'))
 bp.add_url_rule('/images', view_func=ImagesList.as_view('images'))
 bp.add_url_rule('/images/add', view_func=ImagesAdd.as_view('images_add'))
 bp.add_url_rule('/images/del', view_func=ImagesDel.as_view('images_del'))
+
+# 访问者
+bp.add_url_rule('/visitors', view_func=VisitorList.as_view('visitors'))
 
