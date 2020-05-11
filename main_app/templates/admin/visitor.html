@@ -1,0 +1,32 @@
+{% extends 'admin/admin.html' %}
+{% import 'base/macros.html' as macros %}
+
+{% block nav_content %}
+<div class="container active p-0 pt-2" style="font-size: 16px">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>IP</th>
+                <th>访问时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td style="word-break: break-all; word-wrap: break-word; width: 50% !important;">
+                    <a href="{{ item.ip }}" target="_blank" class="text-info">{{ item.ip }}</a>
+                </td>
+                <td>{{ item.created }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/switch-checkbox.js') }}"></script>
+{% endblock %}
