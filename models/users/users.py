@@ -84,3 +84,18 @@ class Images(db.Model):
     def to_admin(self):
         return self.to_list()
 
+
+class Visitors(db.Model):
+    """访问者"""
+    __tablename__ = 'visitors'
+
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String())  # IP
+    created = db.Column(db.DateTime, default=text('Now()'))  # 访问时间
+
+    def to_admin(self):
+        return {
+            'id': self.id,
+            'ip': self.ip,
+            'created': time_format(self.created)
+        }
