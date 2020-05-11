@@ -53,6 +53,7 @@ def emit(self, record):
         if not port:
             port = smtplib.SMTP_PORT
         smtp = smtplib.SMTP_SSL(self.mailhost, port, timeout=5)
+        print(">>>>>>>>>>>>", smtp)
         real_ip = request.headers.get("X-Real-Ip", "")
         ref = request.headers.get("Referer", "")
         header = "From: %s(%s)\r\n\r\nX-Real-Ip:%s\r\nReferer:%s\r\n" % (server, ip, real_ip, ref)
@@ -84,6 +85,7 @@ def enable_logging(app):
             config_mail['SUBJECT'], # smtp 主题
             (config_mail['USER'],config_mail['PASSWORD'])) # smtp账号密码
         mail_handler.setLevel(logging.ERROR)
+        print(">>>>>>>", mail_handler)
         app.logger.addHandler(mail_handler)
     else:
         app.logger.info('No SMTP Config Found')
