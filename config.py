@@ -49,11 +49,11 @@ class Config(object):
 
     LOGGING = {  # 配置日志
         'SMTP':{ # 邮箱日志发送， 如果没有配置， 则不开启
-            'HOST': 'smtp.mail.qq.com', # smtp 服务器地址
+            'HOST': 'smtp.qq.com', # smtp 服务器地址
             "TOADDRS": ['1490766077@qq.com'], # 收件人
             'PORT': 465,
             'SUBJECT': u'jacob', # smtp 主题
-            'USER': '1490766077@qq.com', # smtp账号
+            'USER': '783569480@qq.com', # smtp账号
             'PASSWORD': os.environ.get('SMTP_PASSWORD'), # smtp账号密码
         },  
         'FILE':{ # 文件日志， 如果没有对应的配置，则不开启
