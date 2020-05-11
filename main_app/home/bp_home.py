@@ -15,8 +15,9 @@ from flask.views import MethodView
 from sqlalchemy import extract
 
 from lib._flask import request_args
+from lib.utils import get_ip
 from models.posts.posts import Posts, Categorys
-from models.users.users import Admin, Images
+from models.users.users import Admin, Images, Visitors
 from models.base import db
 
 bp = Blueprint('bp_home', __name__)
@@ -29,6 +30,15 @@ class Home(MethodView):
         size = request_args('size', type=int, default=20)
         category_id = request_args('category_id', type=int, default=0)
         year_month = request_args('year_month', type=str, default='')
+
+        ip = get_ip()
+        visitor = Visitors(ip=ip)
+        try:
+            db.session.add(visitor)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(e)
 
         category = Categorys.query.filter_by(is_use=True).all()
         cate_items = [c.to_admin() for c in category]
