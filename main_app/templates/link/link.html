@@ -16,7 +16,7 @@
             -webkit-line-clamp: 1; -webkit-box-orient: vertical; word-break: break-all;
             word-wrap: break-word;width: 100% !important;">
                 <div class="box p-2">
-                    <img src="{{ item.url }}/favicon.ico" width="22px" class="pb-1">
+                    <img src="{{ item.url }}/favicon.ico"  onerror="this.parentNode.removeChild(this)" width="22px" class="pb-1">
                     <span>
                       {{ item.name }}
                     </span>
