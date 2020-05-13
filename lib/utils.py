@@ -10,6 +10,7 @@ from random import choice
 import re
 import os
 import cv2
+import time
 
 import qrcode
 import markdown
