@@ -11,7 +11,7 @@ import requests
 from flask import current_app
 from qiniu import Auth, put_data, put_file
 
-from lib.utils import md5
+from lib.utils import md5, get_filename
 
 ALLOWED_EXTENSIONS = set(['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG', 'gif', 'GIF'])
 
@@ -37,14 +37,6 @@ def upload_qiniu(filename, data, mode, bucket_name='xgf', config=None):
     assert ret["key"] == filename
 
     return filename
-
-
-def get_filename(filename):
-    """文件随机重命名"""
-    filetype = filename.split('.')[-1] if '.' in filename else ''
-    prefix = str(int(time.time()*10000000)) + str(random.randint(0, 9999))
-
-    return '%s.%s' % (prefix, filetype)
 
 
 def upload_data(file):
