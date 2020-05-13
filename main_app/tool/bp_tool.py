@@ -79,6 +79,7 @@ class Beauty(MethodView):
         file = request.files.get('image')
         print(file)
         if file and utils.allowed_file(file.filename):
+            file_url = fill_domain(upload_data(file))
             path = './main_app/static/images/beauty/{}'.format(utils.get_filename(file.filename))
             file.save(path)  # 保存上传的图片
             newpath = utils.beauty(path, file.filename, value=level)  # 生成新图片的路径
@@ -86,7 +87,7 @@ class Beauty(MethodView):
             print("生成的", img_url)
             message={"message": "上传成功", "category": "info"}
 
-            return render_template('tool/beauty.html', img_url=img_url, message=message)
+            return render_template('tool/beauty.html',file_url=file_url, img_url=img_url, message=message)
         else:
             message={"message": "文件类型必须是图片！", "category": "danger"}
 
