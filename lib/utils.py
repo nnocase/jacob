@@ -9,6 +9,7 @@ import hashlib
 from random import choice
 import re
 import os
+import cv2
 
 import qrcode
 import markdown
@@ -28,6 +29,14 @@ def time_format(created, pattern="%Y-%m-%d %H:%M:%S"):
     _str = datetime.datetime.strftime(created, pattern) if created else ''
 
     return _str
+
+
+def get_filename(filename):
+    """文件随机重命名"""
+    filetype = filename.split('.')[-1] if '.' in filename else ''
+    prefix = str(int(time.time()*10000000)) + str(random.randint(0, 9999))
+
+    return '%s.%s' % (prefix, filetype)
 
 
 def markdown2html(text):
@@ -87,3 +96,18 @@ def get_ip():
     ip = request.headers.get('X-real-Ip') or request.remote_addr
 
     return ip
+
+
+ALLOWED_EXTENSIONS = set(['bmp', 'png', 'jpg', 'jpeg'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+def beauty(path, filename, value=28):
+    img = cv2.imread(path)
+    img_res = cv2.bilateralFilter(img, value, value * 2, value / 2)
+    filename = "./main_app/static/images/beauty/new_{}".format(get_filename(filename))
+    cv2.imwrite(filename, img_res)
+    
+    return filename
