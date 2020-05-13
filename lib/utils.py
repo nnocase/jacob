@@ -11,6 +11,7 @@ import re
 import os
 import cv2
 import time
+import random
 
 import qrcode
 import markdown
