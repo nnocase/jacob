@@ -27,7 +27,7 @@ class Home(MethodView):
     """首页"""
     def get(self):
         page = request_args('page', type=int, default=1)
-        size = request_args('size', type=int, default=20)
+        size = request_args('size', type=int, default=10)
         category_id = request_args('category_id', type=int, default=0)
         year_month = request_args('year_month', type=str, default='')
 
