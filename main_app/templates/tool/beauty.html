@@ -41,7 +41,7 @@
                 <select class="form-control select2" name="level" required>
                     <option value="28">美颜等级</option>
                     {% for k,v in {"1": 24, "2": 26, "3": 28, "4": 30}.items() %}
-                        <option value="{{ v }}">{{ k }}</option>
+                        <option value="{{ v }}" {% if c == level %}selected{% endif %}>{{ k }}</option>
                     {% endfor %}
                 </select>
             </div>
