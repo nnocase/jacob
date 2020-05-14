@@ -88,7 +88,7 @@ class Beauty(MethodView):
             os.remove(newpath)
             message={"message": "美颜成功", "category": "info"}
 
-            return render_template('tool/beauty.html',file_url=file_url, img_url=img_url, message=message)
+            return render_template('tool/beauty.html',file_url=file_url, img_url=img_url, message=message, level=level)
         else:
             message={"message": "文件类型必须是图片！", "category": "danger"}
 
