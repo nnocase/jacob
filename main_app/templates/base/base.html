@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh" class="theme-default">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -65,18 +64,53 @@
       text-align: center;
       font-size: 24px;
     }
+  </style>
+  <style>
+    .theme-default {
 
-    .weather{
-      width: 200px;
-			height: 126px;
-			position: fixed;
-			top: 330px;
-    }
-    #sun {
-			position: absolute;
-			right: -45px;
-			top: -1px;
-		}
+   }
+    .theme-first {
+      --accent-color: #CBDCD8;
+      --font-color: #342c47;
+   }
+   
+   .theme-second {
+      --accent-color: #1C1E2A;
+      --font-color: #97A2AF;
+   }
+   .theme-second a{
+     color: #97A2AF;
+   }
+   
+   .theme-third {
+      --accent-color: #b49c73;
+      --font-color: #565d47;
+   }
+   
+   body {
+       background-color: var(--accent-color);
+       color: var(--font-color);
+   }
+   .color-select{
+     line-height: 38px;
+   }
+   .color-select button {
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid;
+    border-radius: 9999px;
+    cursor: pointer;
+    height: 20px;
+    margin: 0;
+    outline: 0;
+    width: 20px;
+  }
+
+  /* Style each swatch to match the corresponding theme */
+  .color-select button:nth-child(1) { background: #ffffff; border-color:  #000000; }
+  .color-select button:nth-child(2) { background: #CBDCD8; border-color:  #342c47; }
+  .color-select button:nth-child(3) { background: #1C1E2A; border-color: #97A2AF; }
+  .color-select button:nth-child(4) { background: #b49c73; border-color: #565d47; }
   </style>
 </head>
 
@@ -107,6 +141,14 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('bp_link.list') }}">友链</a>
+          </li>
+          <li class="nav-item">
+            <span class="color-select">
+              <button onclick="toggleDefaultTheme()"></button>
+              <button onclick="toggleFirstTheme()"></button>
+              <button onclick="toggleSecondTheme()"></button>
+              <button onclick="toggleThirdTheme()"></button>
+            </span>
           </li>
         </ul>
       </div>
@@ -153,13 +195,6 @@
   <div id="scrollSearchDiv">
       <a id="go" title="回到顶部"><i class="fas fa-angle-up"></i></a>
   </div>
-  
-  <!-- <div class="weather">
-    <a href="javascript:" id="sun">
-      <i class="fas fa-sun text-warning"></i>
-    </a>
-    <img src="http://wttr.in/广州_0tqp_lang=zh.png?temp_C">
-  </div> -->
   {% block edit %}{% endblock %}
 
   {% block content %}{% endblock %}
@@ -391,6 +426,51 @@
   window.onload = function () {
       show(tororo);
   }
-  </script>
+
+  // Set a given theme/color-scheme
+  function setTheme(themeName) {
+    localStorage.setItem('theme', themeName);
+    document.documentElement.className = themeName;
+  }
+
+  // Toggle between color themes
+  function toggleDefaultTheme() {
+    if (localStorage.getItem('theme') !== 'theme-default'){
+        setTheme('theme-default');
+    }
+  }
+  function toggleFirstTheme() {
+    if (localStorage.getItem('theme') !== 'theme-first'){
+        setTheme('theme-first');
+    }
+  }
+  function toggleSecondTheme() {
+    if (localStorage.getItem('theme') !== 'theme-second'){
+        setTheme('theme-second');
+    }
+  }
+  function toggleThirdTheme() {
+    if (localStorage.getItem('theme') !== 'theme-third'){
+        setTheme('theme-third');
+    }
+  }
+
+  // Immediately set the theme on initial load
+  (function () {
+    if (localStorage.getItem('theme') === 'theme-default') {
+        setTheme('theme-default');
+    }
+    if (localStorage.getItem('theme') === 'theme-first') {
+        setTheme('theme-first');
+    }
+    if (localStorage.getItem('theme') === 'theme-second') {
+        setTheme('theme-second');
+    }
+    if (localStorage.getItem('theme') === 'theme-third') {
+        setTheme('theme-third');
+    }
+  })();
+
+</script>
 </body>
 </html>
