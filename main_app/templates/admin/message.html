@@ -25,8 +25,8 @@
                 <td style="word-break: break-all;word-wrap: break-word;width: 15% !important;">
                     <a href="{{ item.url }}" target="_blank" class="text-info">{{ item.url }}</a>
                 </td>
-                <td style="word-break: break-all; word-wrap: break-word; width: 20% !important;">
-                    {{ item.message }}
+                <td>
+                    <a href="{{ url_for('bp_admin.message_detail', id=item.id) }}" class="text-info">查看</a>
                 </td>
                 <td>
                     <input type="checkbox" class="check-box" name="is_use" data-id="{{ item.id }}" data-url="{{ url_for('bp_admin.message_del') }}" {% if item.is_use %}checked{% endif %}>
