@@ -1,0 +1,18 @@
+{% extends 'admin/admin.html' %}
+{% import 'base/macros.html' as macros %}
+
+{% block nav_content %}
+<div class="container active p-0 pt-2" style="font-size: 16px">
+    <div class="pl-3">名字：{{ item.name }}</div>
+    <div class="pl-3">邮箱：{{ item.email }}</div>
+    <div class="pl-3">URL：{{ item.url }}</div>
+    <div class="m-3 p-2" style="border:solid 1px #D2D6DA">
+        {{ item.message }}
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename='js/switch-checkbox.js') }}"></script>
+{% endblock %}
