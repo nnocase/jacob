@@ -257,6 +257,17 @@ class MessageList(MethodView):
         items = [m.to_admin() for m in mess]
 
         return render_template('admin/message.html', items=items, nav='message')
+
+
+class MessageDetail(MethodView):
+    """留言详情"""
+    @login_required
+    def get(self):
+        id = request_args('id', type=int, required=True)
+        mess = Messages.query.get(id)
+        item = mess.to_admin()
+
+        return render_template('admin/message_detail.html', item=item, nav='message')
     
 
 class MessageDel(MethodView):
@@ -375,6 +386,7 @@ bp.add_url_rule('/post/del', view_func=PostDel.as_view('post_del'))
 
 # 留言
 bp.add_url_rule('/message', view_func=MessageList.as_view('message'))
+bp.add_url_rule('/message/detail', view_func=MessageDetail.as_view('message_detail'))
 bp.add_url_rule('/message/del', view_func=MessageDel.as_view('message_del'))
 
 
