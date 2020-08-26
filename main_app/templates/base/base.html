@@ -15,6 +15,8 @@
     type="text/css">
   <!-- Custom styles for this template -->
   <link href="{{ url_for('static', filename='css/clean-blog.min.css') }}" rel="stylesheet">
+  <!--Aplayer-->
+  <link href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
   {% block style %}{% endblock %}
   <style type="text/css">
     #wxqrcode {
@@ -195,6 +197,37 @@
   <div id="scrollSearchDiv">
       <a id="go" title="回到顶部"><i class="fas fa-angle-up"></i></a>
   </div>
+  <div id="aplayer">
+    <pre class="aplayer-lrc-content">
+      [00:00.00] 作曲 : 林一峰
+      [00:01.00] 作词 : 易家扬
+      [00:24.898]听见 冬天的离开
+      [00:29.697]我在某年某月 醒过来
+      [00:34.768]我想 我等 我期待
+      [00:40.598]未来却不能因此安排
+      [00:53.398]阴天 傍晚 车窗外
+      [00:58.758]未来有一个人在等待
+      [01:04.298]向左向右向前看
+      [01:09.599]爱要拐几个弯才来
+      [01:14.369]我遇见谁 会有怎样的对白
+      [01:19.638]我等的人 他在多远的未来
+      [01:24.839]我听见风来自地铁和人海
+      [01:30.399]我排着队 拿着爱的号码牌
+      [01:56.388]阴天 傍晚 车窗外
+      [02:02.298]未来有一个人在等待
+      [02:06.650]向左向右向前看
+      [02:12.000]爱要拐几个弯才来
+      [02:16.980]我遇见谁 会有怎样的对白
+      [02:22.289]我等的人 他在多远的未来
+      [02:27.989]我听见风来自地铁和人海
+      [02:32.688]我排着队 拿着爱的号码牌
+      [02:43.380]我往前飞 飞过一片时间海
+      [02:48.298]我们也曾在爱情里受伤害
+      [02:53.689]我看着路 梦的入口有点窄
+      [02:58.748]我遇见你是最美丽的意外
+      [03:05.888]总有一天 我的谜底会揭开
+    </pre>
+  </div>
   {% block edit %}{% endblock %}
 
   {% block content %}{% endblock %}
@@ -274,9 +307,11 @@
   <!-- Custom scripts for this template -->
   <script src="{{ url_for('static', filename='js/clean-blog.min.js') }}"></script>
   <script src="{{ url_for('static', filename='live2DModel/l2dwidget.min.js') }}"></script>
-
+  <!-- APlayer -->
+  <script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script>
   {% block js %}{% endblock %}
   <script type="text/javascript">
+    // 随机背景图
     function random_bg() {
       $.ajax({
         url: "{{ url_for('bp_tool.random_bg') }}",
@@ -291,6 +326,7 @@
     }
     random_bg();
 
+    // 分享
     $(".share").click(function () {
       var stype = $(this).data('type');
       //获取文章标题
@@ -347,6 +383,7 @@
       }
     });
 
+    // 关闭二维码
     $("#close").click(function () {
       $('#wxqrcode').hide();
     });
@@ -392,6 +429,7 @@
     return false;//阻止默认事件
   });
 
+  // 猫🐱
   var tororo = "{{ url_for('static', filename='live2DModel/tororo/assets/tororo.model.json') }}";
   var hijiki = "{{ url_for('static', filename='live2DModel/hijiki/assets/hijiki.model.json') }}";
 
@@ -403,7 +441,7 @@
       display: {
           superSample: 1, // 超采样等级
           width: 350, // canvas的宽度
-          height: 400, // canvas的高度
+          height: 500, // canvas的高度
           position: 'left', // 显示位置：左或右
           hOffset: 0, // canvas水平偏移
           vOffset: 0, // canvas垂直偏移
@@ -427,6 +465,7 @@
       show(tororo);
   }
 
+  // 主题颜色
   // Set a given theme/color-scheme
   function setTheme(themeName) {
     localStorage.setItem('theme', themeName);
@@ -471,6 +510,18 @@
     }
   })();
 
+  // 音乐播放器
+  const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    lrcType: 2,
+    fixed: true,
+    audio: [{
+        name: '遇见',
+        artist: '孙燕姿',
+        url: "{{ url_for('static', filename='music/meet.mp3') }}",
+        cover: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000002ehzTm0TxXC2.jpg'
+    }]
+  });
 </script>
 </body>
 </html>
