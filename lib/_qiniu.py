@@ -63,7 +63,7 @@ def upload_by_url(url):
     return upload_qiniu(filename, data, mode='data')
 
 
-def fill_domain(filename, http=False):
+def fill_domain(filename, http=True):
     """
     文件名称填充域名信息，组成完整的链接。
     param: filename: 文件名称
