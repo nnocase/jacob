@@ -16,7 +16,7 @@ from scripts import example, create_user, gather_bg
 manager.add_command('example', example.Example())
 manager.add_command('create_user', create_user.CreatedUser())
 manager.add_command('bg', gather_bg.GatherBG())
-manager.add_command('bing', gather_bg.BingBG())
+# manager.add_command('bing', gather_bg.BingBG())
 
 
 if __name__ == '__main__':

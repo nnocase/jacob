@@ -30,19 +30,20 @@ class GatherBG(Command):
         print('完成')
 
 
-class BingBG(Command):
-    """Bing背景图 每天0点运行"""
-    def run(self):
-        url = "https://api.meowv.com/common/bing"
-        filename = upload_by_url(url)
-        img = Images(name=filename)
-        try:
-            db.session.add(img)
-            db.session.commit()
-        except Exception as e:
-            print('存入bing失败')
-            db.session.rollback()
+# class BingBG(Command):
+#     """Bing背景图 每天0点运行"""
+#     def run(self):
+#         url = "https://api.meowv.com/common/bing"
+#         filename = upload_by_url(url)
+#         print('-----',filename)
+#         img = Images(name=filename)
+#         try:
+#             db.session.add(img)
+#             db.session.commit()
+#         except Exception as e:
+#             print('存入bing失败')
+#             db.session.rollback()
 
-        print('存入bing成功')
+#         print('存入bing成功')
 
 
