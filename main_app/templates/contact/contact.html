@@ -49,6 +49,16 @@
             <button type="submit" class="btn btn-primary" id="sendMessageButton">发送</button>
           </div>
         </form>
+
+        <h4>留言</h4>
+        <hr>
+        <div>
+          {% for item in items %}
+            <h6>{{ item.name }}：</h6>
+            <div style="font-size: small;">{{ item.message }}</div>
+            <hr>
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>

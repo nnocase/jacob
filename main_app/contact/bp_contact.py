@@ -19,8 +19,10 @@ bp = Blueprint('bp_contact', __name__)
 class Contact(MethodView):
     """留言"""
     def get(self):
+        msg = Messages.query.filter_by(is_use=True).limit(30).all()
+        items = [m.to_admin() for m in msg]
 
-        return render_template('contact/contact.html')
+        return render_template('contact/contact.html', items=items)
 
     def post(self):
         name = request_form('name', type=str, required=True)
